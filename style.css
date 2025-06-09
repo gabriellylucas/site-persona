@@ -311,3 +311,33 @@ body {
 #form-contato .mb-3 {
   margin-bottom: 20px;
 }
+
+#social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 25px;
+}
+
+#social-icons a {
+  color: #d97b93; 
+  font-size: 28px;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+#social-icons a:hover {
+  color: #F3B6C9; 
+}
+
+.titulo-contato {
+  color: #d97b93;
+}
+
+.titulo-produtos {
+  color: #d97b93;
+}
+
+
+
+
