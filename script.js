@@ -43,17 +43,54 @@ filter.addEventListener("change", () => {
 
 renderCakes("todos");
 
-    document.getElementById('formulario').addEventListener('submit', function(event) {
-      event.preventDefault();
 
-      const nome = document.getElementById('nome').value;
-      const email = document.getElementById('email').value;
-      const mensagem = document.getElementById('mensagem').value;
+  document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('form-contato');
 
-      document.getElementById('resposta').innerHTML = `
-        <div class="alert alert-success">
-          Obrigado, <strong>${nome}</strong>! Sua mensagem foi enviada com sucesso.
-        </div>`;
+  form.addEventListener('submit', (event) => {
+    event.preventDefault(); 
 
-      this.reset();
-    });
+    clearValidation();
+
+    let isValid = true;
+    const nome = form.nome.value.trim();
+    const email = form.email.value.trim();
+    const mensagem = form.mensagem.value.trim();
+
+    if (nome === '') {
+      showError('nome');
+      isValid = false;
+    }
+
+    if (email === '' || !validateEmail(email)) {
+      showError('email');
+      isValid = false;
+    }
+
+    if (mensagem === '') {
+      showError('mensagem');
+      isValid = false;
+    }
+
+    if (isValid) {
+      alert('Formulário enviado com sucesso! Obrigada pelo contato.');
+      form.reset();
+    }
+  });
+
+  function showError(id) {
+    const input = document.getElementById(id);
+    input.classList.add('is-invalid');
+  }
+
+  function clearValidation() {
+    const inputs = form.querySelectorAll('.form-control');
+    inputs.forEach(input => input.classList.remove('is-invalid'));
+  }
+
+  function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email.toLowerCase());
+  }
+});
+

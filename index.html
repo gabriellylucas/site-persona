@@ -34,6 +34,11 @@
           <li class="nav-item">
             <a class="nav-link perma-hover hovered" href="#">Faça seu pedido</a>
           </li>
+          <a class="nav-link perma-hover hovered ms-1" href="#" id="carrinho-btn">
+           <i class="fas fa-shopping-cart"></i> Carrinho
+           </a>
+
+          </li>
         </ul>
       </div>
     </div>
@@ -65,6 +70,29 @@
       </p>
     </div>
   </section>
+
+  <section class="container my-5" id="contato">
+  <h2 class="text-center mb-4">Contato</h2>
+  <form id="form-contato" novalidate>
+    <div class="mb-3">
+      <label for="nome" class="form-label">Nome completo</label>
+      <input type="text" class="form-control" id="nome" name="nome" placeholder="Seu nome" required />
+      <div class="invalid-feedback">Por favor, informe seu nome.</div>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">E-mail</label>
+      <input type="email" class="form-control" id="email" name="email" placeholder="email@exemplo.com" required />
+      <div class="invalid-feedback">Por favor, informe um e-mail válido.</div>
+    </div>
+    <div class="mb-3">
+      <label for="mensagem" class="form-label">Mensagem</label>
+      <textarea class="form-control" id="mensagem" name="mensagem" rows="4" placeholder="Sua mensagem" required></textarea>
+      <div class="invalid-feedback">Por favor, escreva sua mensagem.</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+</section>
+
 
   <section class="container categorias-section my-5">
   <h2 class="text-center mb-4">Produtos</h2>
