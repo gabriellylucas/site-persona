@@ -347,6 +347,35 @@ body {
   top: -5px; 
 }
 
+.btn-eu-quero {
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 25px;
+  background-color: #fff; 
+  color: #F3B6C9;
+  border: none;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-eu-quero:hover {
+  background-color: #fff; 
+  transform: scale(1.05); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+.nav-link.active {
+  background-color: #F3B6C9;
+  color: #fff !important;
+  border-radius: 20px;
+}
+
+
+
+
+
+
+
 
 
 
