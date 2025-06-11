@@ -29,7 +29,7 @@
 
 .banner-texto {
   position: absolute;
-  top: 65%;
+  top: 55%;
   left: 10%;
   transform: translateY(-50%);
   text-align: left;
@@ -54,15 +54,15 @@
   padding: 12px 25px;
   font-size: 1rem;
   border-radius: 25px;
-  background-color: #F3B6C9; 
-  color: #fff;
+  background-color: #fff; 
+  color: #F3B6C9;
   border: none;
   transition: all 0.3s ease;
   font-family: 'Poppins', sans-serif;
 }
 
 .banner-texto .btn:hover {
-  background-color: #e89aaf; 
+  background-color: #fff; 
   transform: scale(1.05); 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
 }
@@ -71,7 +71,7 @@
   border-radius: 15px;
   border: none;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  background-color: #edb8a7;
+  background-color: #fddcd8;
 }
 
 .card img {
@@ -89,8 +89,8 @@
   padding: 12px 25px;
   font-size: 1rem;
   border-radius: 25px;
-  background-color: #F3B6C9;
-  color: #fff;
+  background-color: #fff;
+  color: #e89aaf;
   border: none;
   transition: all 0.3s ease;
   font-family: 'Poppins', sans-serif;
@@ -337,6 +337,20 @@ body {
 .titulo-produtos {
   color: #d97b93;
 }
+
+#social-icons {
+  margin-top: -10px; 
+}
+
+#social-icons a {
+  position: relative;
+  top: -5px; 
+}
+
+
+
+
+
 
 
 
