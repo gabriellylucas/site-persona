@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Hover permanente no menu
+  // Número do WhatsApp
+  const numeroWhatsApp = "5544988563181";
+
+  // Botões com hover permanente
   const permaButtons = document.querySelectorAll(".perma-hover");
   permaButtons.forEach(permaButton => {
     permaButton.classList.add("hovered");
@@ -8,13 +11,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Dados dos bolos (cake)
+  // Lista de bolos
   const cakes = [
     { id: 1, name: "Creme Belga com Abacaxi", img: "imagens/belga com abacaxi.PNG", ingredient: "abacaxi" },
     { id: 2, name: "Creme Belga com Morango", img: "imagens/belga com morango.PNG", ingredient: "morango" },
     { id: 3, name: "Ninho com Morango", img: "imagens/ninho com morango.PNG", ingredient: "morango" },
-    { id: 5, name: "Prestígio", img: "imagens/prestígio.PNG", ingredient: "prestígio" },
-    { id: 6, name: "Dois Amores", img: "imagens/dois amores.PNG", ingredient: "dois amores" },
+    { id: 5, name: "Prestígio", img: "imagens/prestígio.PNG", ingredient: "coco" },
+    { id: 6, name: "Dois Amores", img: "imagens/dois amores.PNG", ingredient: "brigadeiro" },
     { id: 7, name: "Doce de Leite com Abacaxi", img: "imagens/doce de leite com abacaxi.PNG", ingredient: "abacaxi" },
     { id: 8, name: "Chocolate", img: "imagens/bolo de chocolate.PNG", ingredient: "chocolate" },
     { id: 9, name: "Ninho com Chocolate", img: "imagens/ninho com chocolate.PNG", ingredient: "chocolate" },
@@ -32,10 +35,11 @@ document.addEventListener("DOMContentLoaded", function () {
     { id: 21, name: "Chocolate com Maracujá ", img: "imagens/chocolate com maracuja.PNG", ingredient: "maracuja" },
     { id: 22, name: "Nata com Morango e Chocolate", img: "imagens/nata com morango e chocolate.PNG", ingredient: "chocolate" },
     { id: 23, name: "Três Leites", img: "imagens/três leites.PNG", ingredient: "três leites" },
-    { id: 24, name: "Doce de Leite com Abacaxi ", img: "imagens/IMG_8360.PNG", ingredient: "abacaxi" },
+    { id: 24, name: "Três Leites com Morango ", img: "imagens/tres leites com morango.PNG", ingredient: "morango" },
+    { id: 25, name: "Creme Belga com Morango e Suspiro ", img: "imagens/creme belga com morango e suspiro.PNG", ingredient: "morango" },
+    { id: 26, name: "Nata com Morango e Suspiro", img: "imagens/.PNG", ingredient: "morango" },
   ];
 
-  // Só cria esses elementos se existirem no HTML
   const productList = document.getElementById("product-list");
   const filter = document.getElementById("filter");
 
@@ -43,19 +47,31 @@ document.addEventListener("DOMContentLoaded", function () {
     function renderCakes(selected) {
       productList.innerHTML = "";
       const filtered = selected === "todos" ? cakes : cakes.filter(cake => cake.ingredient === selected);
+
       filtered.forEach(cake => {
-        productList.innerHTML += `
-          <div class="col-md-3 mb-4">
-            <div class="card h-100 text-center">
-              <img src="${cake.img}" alt="${cake.name}" class="card-img-top" />
-              <div class="card-body">
-                <small class="text-muted">#${cake.id}</small>
-                <h5 class="card-title mt-2">${cake.name}</h5>
-                <button class="btn-eu-quero mt-2">Eu quero</button>
-              </div>
+        // Criar o card do bolo
+        const card = document.createElement("div");
+        card.className = "col-md-3 mb-4";
+
+        card.innerHTML = `
+          <div class="card h-100 text-center">
+            <img src="${cake.img}" alt="${cake.name}" class="card-img-top" />
+            <div class="card-body">
+              <small class="text-muted">#${cake.id}</small>
+              <h5 class="card-title mt-2">${cake.name}</h5>
+             <button class="btn-eu-quero mt-2">Eu Quero</button>
             </div>
           </div>
         `;
+
+        const btnQuero = card.querySelector(".btn-eu-quero");
+        btnQuero.addEventListener("click", () => {
+          const mensagem = `Olá! Gostaria de encomendar o bolo de ${cake.name}, por favor.`;
+          const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+          window.open(urlWhatsApp, "_blank");
+        });
+
+        productList.appendChild(card);
       });
     }
 
@@ -83,33 +99,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
       limparValidacoes();
 
-      // Verifica se pelo menos um campo foi preenchido
       const campos = [nome, email, telefone, endereco, assunto, mensagem];
       const preencheuAlgum = campos.some(campo => campo.value.trim() !== "");
 
       if (preencheuAlgum) {
-        // Agora, TODOS os campos precisam ser preenchidos
         campos.forEach(campo => {
-          if (!campo.value.trim()) {
+          const valor = campo.value.trim();
+
+          if (!valor) {
             setErro(campo, "Por favor, preencha este campo.");
             valid = false;
-          } else {
-            if (campo === email && !validaEmail(email.value)) {
-              setErro(email, "Por favor, informe um e-mail válido.");
-              valid = false;
-            } else {
-              setSucesso(campo);
-            }
+            return;
           }
+
+          if (campo === email && !validaEmail(valor)) {
+            setErro(campo, "Por favor, informe um e-mail válido.");
+            valid = false;
+            return;
+          }
+
+          if (campo === telefone && !validaTelefone(valor)) {
+            setErro(campo, "Informe um telefone válido (10 ou 11 dígitos).");
+            valid = false;
+            return;
+          }
+
+          setSucesso(campo);
         });
       } else {
-        // Se nenhum preenchido, limpa validação e impede envio
         campos.forEach(campo => limpaValidacaoCampo(campo));
-        valid = false; // não deixa enviar com tudo vazio
+        valid = false;
       }
 
       if (valid) {
-        form.submit();
+        alert("Mensagem enviada com sucesso!");
+        form.reset();
+        limparValidacoes();
       }
     });
 
@@ -142,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function limparValidacoes() {
       const campos = form.querySelectorAll("input, select, textarea");
-      campos.forEach((campo) => {
+      campos.forEach(campo => {
         campo.classList.remove("is-invalid");
         campo.classList.remove("is-valid");
 
@@ -169,11 +194,10 @@ document.addEventListener("DOMContentLoaded", function () {
       const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return re.test(email.toLowerCase());
     }
+
+    function validaTelefone(telefone) {
+      const apenasNumeros = telefone.replace(/\D/g, "");
+      return /^[0-9]+$/.test(apenasNumeros) && (apenasNumeros.length >= 10 && apenasNumeros.length <= 11);
+    }
   }
 });
-
-
-
-
-
-
