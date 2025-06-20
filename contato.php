@@ -14,12 +14,10 @@
   <?php include 'menu.php'; ?>
 
   <div class="container mt-5">
-    <h2 class="mb-4">Fale com a gente</h2>
-
     <form id="form-contato" novalidate>
       <div class="row mb-3">
         <div class="col-md-4">
-          <label for="nome" class="form-label">Nome completo</label>
+          <label for="nome" class="form-label">Nome</label>
           <input type="text" class="form-control" id="nome" name="nome" placeholder="Seu nome" required />
           <div class="invalid-feedback">Por favor, informe seu nome.</div>
         </div>
@@ -32,20 +30,19 @@
 
         <div class="col-md-4">
           <label for="telefone" class="form-label">Telefone</label>
-          <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="(00) 00000-0000" />
-        </div>
+          <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="(00) 00000-0000" required />
+          <div class="invalid-feedback"> Por favor, informe um número de telefone válido.</div>
       </div>
 
       <div class="row mb-3">
         <div class="col-md-8">
           <label for="endereco" class="form-label">Endereço completo</label>
-          <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Rua, número, bairro, cidade, CEP" />
-        </div>
+          <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Rua, número,cidade ou CEP" />
+          <div class="invalid-feedback"></div> </div>
       </div>
 
       <div class="mb-3">
-        <label for="mensagem" class="form-label">Mensagem</label>
-        <div class="row mb-3">
+        <label for="assunto" class="form-label">Mensagem</label> <div class="row mb-3">
           <div class="col-md-8">
             <select class="form-select select-rosinha" id="assunto" name="assunto">
               <option value="" selected>Escolha um assunto</option>
@@ -54,7 +51,7 @@
               <option value="reclamacao">Reclamação</option>
               <option value="outros">Outros</option>
             </select>
-          </div>
+            <div class="invalid-feedback"></div> </div>
         </div>
         <textarea class="form-control" id="mensagem" name="mensagem" rows="4" placeholder="Sua mensagem" required></textarea>
         <div class="invalid-feedback">Por favor, escreva sua mensagem.</div>

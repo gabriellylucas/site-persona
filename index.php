@@ -12,24 +12,7 @@
 </head>
 <body>
 
-
-<nav class="navbar navbar-expand-lg navbar-light shadow-sm">
-  <div class="container">
-    <img src="imagens/logo.png" alt="Logo" height="110" />
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link active" href="#inicio">Início</a></li>
-        <li class="nav-item"><a class="nav-link" href="#cardapio">Cardápio</a></li>
-        <li class="nav-item"><a class="nav-link" href="sobre.php">Sobre</a></li>
-        <li class="nav-item"><a class="nav-link" href="contato.php">Contato</a></li>
-        <li class="nav-item"><a class="nav-link perma-hover hovered" href="#cardapio">Faça seu pedido</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+  <?php include 'menu.php'; ?>
 
 <div class="banner-container">
   <img src="imagens/bolo4.png" alt="logo" class="img-fluid w-100" />
@@ -85,28 +68,7 @@
   </div>
 </section>
 
-<footer class="footer">
-  <div class="footer-container">
-    <div class="footer-logo">
-      <h2>Lia: Bolos e Cia</h2>
-      <p>Delícias feitas com carinho ♥</p>
-    </div>
-
-    <div class="footer-contact">
-      <h4>Contato</h4>
-      <p><i class="fab fa-whatsapp"></i> (44)98856-3181 </p>
-      <div class="footer-social">
-        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-        <a href="https://wa.me/5599999999999" target="_blank"><i class="fab fa-whatsapp"></i></a>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <p>&copy; 2025 Lia: Bolos e Cia. Todos os direitos reservados.</p>
-  </div>
-</footer>
+<?php include 'footer.php'; ?>
 
 <div id="lista-bolos"></div>
 

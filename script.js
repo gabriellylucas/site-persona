@@ -80,122 +80,162 @@ document.addEventListener("DOMContentLoaded", function () {
     renderCakes("todos");
   }
 
-  const form = document.getElementById("form-contato");
+const form = document.getElementById("form-contato");
 
-  if (form) {
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
+if (form) {
+  const endereco = form.endereco;
 
-      let valid = true;
+  // Evento para detectar saída do campo endereço
+  endereco.addEventListener("blur", function () {
+    const valor = endereco.value.trim();
+    const cepRegex = /^\d{5}-?\d{3}$/;
 
-      const nome = form.nome;
-      const email = form.email;
-      const telefone = form.telefone;
-      const endereco = form.endereco;
-      const assunto = form.assunto;
-      const mensagem = form.mensagem;
-
-      limparValidacoes();
-
-      const campos = [nome, email, telefone, endereco, assunto, mensagem];
-      const preencheuAlgum = campos.some(campo => campo.value.trim() !== "");
-
-      if (preencheuAlgum) {
-        campos.forEach(campo => {
-          const valor = campo.value.trim();
-
-          if (!valor) {
-            setErro(campo, "Por favor, preencha este campo.");
-            valid = false;
-            return;
+    if (cepRegex.test(valor)) {
+      const cep = valor.replace(/\D/g, "");
+      fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.erro) {
+            const enderecoCompleto = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
+            endereco.value = enderecoCompleto;
+            setSucesso(endereco);
+          } else {
+            setErro(endereco, "CEP não encontrado.");
           }
-
-          if (campo === email && !validaEmail(valor)) {
-            setErro(campo, "Por favor, informe um e-mail válido.");
-            valid = false;
-            return;
-          }
-
-          if (campo === telefone && !validaTelefone(valor)) {
-            setErro(campo, "Informe um telefone válido (10 ou 11 dígitos).");
-            valid = false;
-            return;
-          }
-
-          setSucesso(campo);
+        })
+        .catch(() => {
+          setErro(endereco, "Erro ao consultar o CEP.");
         });
-      } else {
-        campos.forEach(campo => limpaValidacaoCampo(campo));
+    }
+  });
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    let valid = true;
+
+    const nome = form.nome;
+    const email = form.email;
+    const telefone = form.telefone;
+    const assunto = form.assunto;
+    const mensagem = form.mensagem;
+
+    limparValidacoes();
+
+    const campos = [nome, email, telefone, endereco, assunto, mensagem];
+
+    for (let i = 0; i < campos.length; i++) {
+      const campo = campos[i];
+      const valor = campo.value.trim();
+      let campoValido = true;
+
+      if (!valor) {
+        setErro(campo, "Por favor, preencha este campo.");
         valid = false;
+        campoValido = false;
       }
 
-      if (valid) {
-        alert("Mensagem enviada com sucesso!");
-        form.reset();
-        limparValidacoes();
+      if (valor && campo.name === "email") {
+        if (!validaEmail(valor)) {
+          setErro(campo, "Por favor, informe um e-mail válido.");
+          valid = false;
+          campoValido = false;
+        }
       }
-    });
 
-    function setErro(campo, mensagem) {
-      const formGroup = campo.closest(".mb-3, .col-md-4, .col-md-8");
-      if (!formGroup) return;
-
-      campo.classList.add("is-invalid");
-      campo.classList.remove("is-valid");
-
-      let feedback = formGroup.querySelector(".invalid-feedback");
-      if (!feedback) {
-        feedback = document.createElement("div");
-        feedback.className = "invalid-feedback";
-        formGroup.appendChild(feedback);
+      if (valor && campo.name === "telefone") {
+        if (!validaTelefone(valor)) {
+          setErro(campo, "Informe um telefone válido (10 ou 11 dígitos).");
+          valid = false;
+          campoValido = false;
+        }
       }
-      feedback.textContent = mensagem;
+
+      if (valor && campo.name === "endereco") {
+        const temCEP = /^\d{5}-?\d{3}$/.test(valor);
+        const partesEndereco = valor
+          .split(",")
+          .map((p) => p.trim())
+          .filter((p) => p.length >= 2);
+        const enderecoCompleto = partesEndereco.length >= 3; // rua, bairro, cidade (pode ajustar)
+
+        if (!temCEP && !enderecoCompleto) {
+          setErro(
+            campo,
+            "Informe um endereço completo (rua, bairro, cidade) ou apenas o CEP (ex: 12345-678)."
+          );
+          valid = false;
+          campoValido = false;
+        }
+      }
+
+      if (campoValido) {
+        setSucesso(campo);
+      }
     }
 
-    function setSucesso(campo) {
-      campo.classList.remove("is-invalid");
-      campo.classList.add("is-valid");
-
-      const formGroup = campo.closest(".mb-3, .col-md-4, .col-md-8");
-      if (!formGroup) return;
-
-      let feedback = formGroup.querySelector(".invalid-feedback");
-      if (feedback) feedback.textContent = "";
+    if (valid) {
+      alert("Mensagem enviada com sucesso!");
+      form.reset();
+      limparValidacoes();
     }
+  });
 
-    function limparValidacoes() {
-      const campos = form.querySelectorAll("input, select, textarea");
-      campos.forEach(campo => {
-        campo.classList.remove("is-invalid");
-        campo.classList.remove("is-valid");
+  function setErro(campo, mensagem) {
+    const formGroup =
+      campo.closest(".mb-3") || campo.closest(".col-md-4") || campo.closest(".col-md-8");
+    if (!formGroup) return;
 
-        const formGroup = campo.closest(".mb-3, .col-md-4, .col-md-8");
-        if (!formGroup) return;
+    campo.classList.add("is-invalid");
+    campo.classList.remove("is-valid");
 
-        let feedback = formGroup.querySelector(".invalid-feedback");
-        if (feedback) feedback.textContent = "";
-      });
+    let feedback = formGroup.querySelector(".invalid-feedback");
+    if (!feedback) {
+      feedback = document.createElement("div");
+      feedback.className = "invalid-feedback";
+      formGroup.appendChild(feedback);
     }
-
-    function limpaValidacaoCampo(campo) {
-      campo.classList.remove("is-invalid");
-      campo.classList.remove("is-valid");
-
-      const formGroup = campo.closest(".mb-3, .col-md-4, .col-md-8");
-      if (!formGroup) return;
-
-      const feedback = formGroup.querySelector(".invalid-feedback");
-      if (feedback) feedback.textContent = "";
-    }
-
-    function validaEmail(email) {
-      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return re.test(email.toLowerCase());
-    }
-
-    function validaTelefone(telefone) {
-      const apenasNumeros = telefone.replace(/\D/g, "");
-      return /^[0-9]+$/.test(apenasNumeros) && (apenasNumeros.length >= 10 && apenasNumeros.length <= 11);
-    }
+    feedback.textContent = mensagem;
   }
-});
+
+  function setSucesso(campo) {
+    campo.classList.remove("is-invalid");
+    campo.classList.add("is-valid");
+
+    const formGroup =
+      campo.closest(".mb-3") || campo.closest(".col-md-4") || campo.closest(".col-md-8");
+    if (!formGroup) return;
+
+    let feedback = formGroup.querySelector(".invalid-feedback");
+    if (feedback) feedback.textContent = "";
+  }
+
+  function limparValidacoes() {
+    const campos = form.querySelectorAll("input, select, textarea");
+    campos.forEach((campo) => {
+      campo.classList.remove("is-invalid");
+      campo.classList.remove("is-valid");
+
+      const formGroup =
+        campo.closest(".mb-3") || campo.closest(".col-md-4") || campo.closest(".col-md-8");
+      if (!formGroup) return;
+
+      let feedback = formGroup.querySelector(".invalid-feedback");
+      if (feedback) feedback.textContent = "";
+    });
+  }
+
+  function validaEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email.toLowerCase());
+  }
+
+  function validaTelefone(telefone) {
+    const apenasNumeros = telefone.replace(/\D/g, "");
+    return (
+      /^[0-9]+$/.test(apenasNumeros) &&
+      (apenasNumeros.length >= 10 && apenasNumeros.length <= 11)
+    );
+  }
+}
+}); 
