@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Número do WhatsApp
+
   const numeroWhatsApp = "5544988563181";
 
-  // Botões com hover permanente
   const permaButtons = document.querySelectorAll(".perma-hover");
   permaButtons.forEach(permaButton => {
     permaButton.classList.add("hovered");
@@ -11,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Lista de bolos
+  
   const cakes = [
     { id: 1, name: "Creme Belga com Abacaxi", img: "imagens/belga com abacaxi.PNG", ingredient: "abacaxi" },
     { id: 2, name: "Creme Belga com Morango", img: "imagens/belga com morango.PNG", ingredient: "morango" },
@@ -49,7 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const filtered = selected === "todos" ? cakes : cakes.filter(cake => cake.ingredient === selected);
 
       filtered.forEach(cake => {
-        // Criar o card do bolo
         const card = document.createElement("div");
         card.className = "col-md-3 mb-4";
 
