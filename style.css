@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins&display=swap');
 
 .nav-link {
-  padding: 10px 24px !important;
-  margin: 0 2px; 
+  position: relative;
+  padding: 10px 10px !important;  
+  margin: 0 6px;  
   font-size: 1rem !important;
   border-radius: 25px !important;
   background-color: transparent;
@@ -15,11 +16,11 @@
   text-align: center;
 }
 
-
 .nav-link:hover {
-  background-color: #F3B6C9;
-  color: #fff !important;
+  background-color: transparent !important;
+  color: #5C4033 !important;
 }
+
 
 .navbar-brand {
   font-weight: bold;
@@ -28,9 +29,11 @@
 
 .nav-link:hover,
 .nav-link.hovered {
-  background-color: #F3B6C9;
-  color: #fff !important;
+  background-color: transparent !important;
+  color: #5C4033 !important;  /* mesma cor normal */
+  box-shadow: none !important;
 }
+
 
 .navbar {
   background-color: #FADADD;
@@ -393,11 +396,6 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
 }
 
-.nav-link.active {
-  background-color: #F3B6C9;
-  color: #fff !important;
-  border-radius: 20px;
-}
 .footer {
   background-color: #FADADD;
   color: #5e2b2b;
@@ -488,4 +486,44 @@ body {
   transform: scale(1.05);
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
+
+.navbar-nav {
+  position: relative;
+  display: flex; 
+  gap: 10px;
+  max-width: fit-content;
+}
+
+.nav-underline {
+  position: absolute;
+  height: 2px;
+  background-color: #5C4033;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  bottom: 15px;
+  border-radius: 2px;
+}
+
+
+.pedido-btn {
+  background-color: #F3B6C9 !important;
+  color: #fff !important;
+  border-radius: 25px !important;
+  padding: 10px 24px !important;
+  border: 2px solid #F3B6C9 !important;
+  cursor: pointer !important;
+  transition: none !important;
+}
+
+.pedido-btn:hover {
+  background-color: #F3B6C9 !important;
+  color: #fff !important;
+  border: 2px solid #F3B6C9 !important;
+  cursor: pointer !important;
+  transition: none !important;
+}
+
+
+
+
 
