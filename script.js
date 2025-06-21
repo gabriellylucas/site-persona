@@ -52,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Lista de bolos
   const cakes = [
     { id: 1, name: "Creme Belga com Abacaxi", img: "imagens/belga com abacaxi.PNG", ingredient: "abacaxi" },
     { id: 2, name: "Creme Belga com Morango", img: "imagens/belga com morango.PNG", ingredient: "morango" },
@@ -78,8 +77,27 @@ document.addEventListener("DOMContentLoaded", function () {
     { id: 23, name: "Três Leites", img: "imagens/três leites.PNG", ingredient: "três leites" },
     { id: 24, name: "Três Leites com Morango ", img: "imagens/tres leites com morango.PNG", ingredient: "morango" },
     { id: 25, name: "Creme Belga com Morango e Suspiro ", img: "imagens/creme belga com morango e suspiro.PNG", ingredient: "morango" },
-    { id: 26, name: "Nata com Morango e Suspiro", img: "imagens/.PNG", ingredient: "morango" }
-  ];
+    { id: 26, name: "Nata com Morango e Suspiro", img: "imagens/nata com morango e suspiro.PNG", ingredient: "morango" },
+    { id: 27, name: "Ninho com Nutella", img: "imagens/ninho com nutella.PNG", ingredient: "morango" },
+    { id: 28, name: "Ninho Trufado com Morango", img: "imagens/ninho trufado com morango.PNG", ingredient: "morango" },
+    { id: 29, name: "Quatro Leite com Chocolate", img: "imagens/quatro leite com chocolate.PNG", ingredient: "morango" },
+    { id: 30, name: "Trufado de Abacaxi com Chocolate Branco", img: "imagens/trufado de abacaxi com chocolate branco.PNG", ingredient: "morango" },
+    { id: 31, name: "Maracujá com Chocolate Branco", img: "imagens/maracuja com chocolate branco.PNG", ingredient: "morango" },
+    { id: 32, name: "Coco com Amêndoa", img: "imagens/Coco com Amendoa.PNG", ingredient: "morango" },
+    { id: 33, name: "Chocolate com Cereja", img: "imagens/Chocolate com Cereja.PNG", ingredient: "morango" },
+    { id: 34, name: "Doce de Leite com Ameixa", img: "imagens/ameixa.PNG", ingredient: "morango" },
+    { id: 42, name: "Limão com Chocolate", img: "imagens/mousse de limão.PNG", ingredient: "morango" },
+    { id: 35, name: "Brigadeiro", img: "imagens/brigadeiro.PNG", ingredient: "morango" },
+    { id: 36, name: "Beijinho", img: "imagens/beijinho.PNG", ingredient: "morango" },
+    { id: 37, name: "Churros", img: "imagens/churros.PNG", ingredient: "morango" },
+    { id: 38, name: "Beijinho de Ninho com Nutella", img: "imagens/ninho com nutella docinho.PNG", ingredient: "morango" },
+    { id: 39, name: "Flor de Ninho e Nutella", img: "imagens/docinhos em flor.PNG", ingredient: "morango" },
+    { id: 40, name: "Bolo de Cenoura", img: "imagens/bolo de cenoura com cobertura de chocolate.PNG", ingredient: "morango" },
+    { id: 41, name: "Bolo de Laranja", img: "imagens/bolo de laranja.PNG", ingredient: "morango" },
+    { id: 42, name: "Mousse de Maracujá", img: "imagens/mousse de maracuja.PNG", ingredient: "morango" },
+    { id: 43, name: "Pudim", img: "imagens/pudim2.PNG", ingredient: "morango" },
+    { id: 44, name: "Bolo Personalizado da Sua Escolha", img: "imagens/bolos perso.PNG", ingredient: "morango" },
+    ];
 
   const productList = document.getElementById("product-list");
   const filter = document.getElementById("filter");
@@ -123,7 +141,6 @@ document.addEventListener("DOMContentLoaded", function () {
     renderCakes("todos");
   }
 
-  // Formulário de contato
   const form = document.getElementById("form-contato");
 
   if (form) {
