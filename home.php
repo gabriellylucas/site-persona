@@ -59,7 +59,30 @@
       <option value="morango">Morango</option>
       <option value="chocolate">Chocolate</option>
       <option value="abacaxi">Abacaxi</option>
-    </select>
+      <option value="creme belga">Creme Belga</option> <option value="ninho">Ninho</option>
+      <option value="brigadeiro">Brigadeiro</option>
+      <option value="beijinho">Beijinho</option>
+      <option value="amendoim">Amendoim</option>
+      <option value="nata">Nata</option>
+      <option value="quatro leites">Quatro Leites</option>
+      <option value="maracuja">Maracujá</option>
+      <option value="pessego">Pêssego</option>
+      <option value="doce de leite">Doce de Leite</option>
+      <option value="coco">Coco</option>
+      <option value="tres leites">Três Leites</option>
+      <option value="suspiro">Suspiro</option>
+      <option value="nutella">Nutella</option>
+      <option value="chocolate branco">Chocolate Branco</option>
+      <option value="amendoa">Amêndoa</option>
+      <option value="cereja">Cereja</option>
+      <option value="ameixa">Ameixa</option>
+      <option value="limao">Limão</option>
+      <option value="cenoura">Cenoura</option>
+      <option value="laranja">Laranja</option>
+      <option value="caramelo">Caramelo</option>
+      <option value="leite condensado">Leite Condensado</option>
+      <option value="canela">Canela</option>
+      </select>
   </div>
 </section>
 
