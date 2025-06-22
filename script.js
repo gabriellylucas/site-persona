@@ -53,50 +53,51 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const cakes = [
-    { id: 1, name: "Creme Belga com Abacaxi", img: "imagens/belga com abacaxi.PNG", ingredient: "abacaxi" },
-    { id: 2, name: "Creme Belga com Morango", img: "imagens/belga com morango.PNG", ingredient: "morango" },
-    { id: 3, name: "Ninho com Morango", img: "imagens/ninho com morango.PNG", ingredient: "morango" },
-    { id: 5, name: "Prestígio", img: "imagens/prestígio.PNG", ingredient: "coco" },
-    { id: 6, name: "Dois Amores", img: "imagens/dois amores.PNG", ingredient: "brigadeiro" },
-    { id: 7, name: "Doce de Leite com Abacaxi", img: "imagens/doce de leite com abacaxi.PNG", ingredient: "abacaxi" },
-    { id: 8, name: "Chocolate", img: "imagens/bolo de chocolate.PNG", ingredient: "chocolate" },
-    { id: 9, name: "Ninho com Chocolate", img: "imagens/ninho com chocolate.PNG", ingredient: "chocolate" },
-    { id: 10, name: "Creme de Ameindoim ", img: "imagens/creme de ameindoim.PNG", ingredient: "ameindoim" },
-    { id: 11, name: "Nata com Morango ", img: "imagens/nata com morango.PNG", ingredient: "morango" },
-    { id: 12, name: "Quatro Leite", img: "imagens/quatro leite.PNG", ingredient: "quatro leite" },
-    { id: 13, name: "Creme Belga com Abacaxi e Coco", img: "imagens/belga com abacaxi e coco.PNG", ingredient: "abacaxi" },
-    { id: 14, name: "Dois Amores com Maracujá ", img: "imagens/dois amores e maracuja.PNG", ingredient: "maracuja" },
-    { id: 15, name: "Chocolate com Morango ", img: "imagens/chocolate com morango.PNG", ingredient: "morango" },
-    { id: 16, name: "Quatro Leite com Morango", img: "imagens/quatro leite com morango.PNG", ingredient: "morango" },
-    { id: 17, name: "Creme Belga com Pêssego", img: "imagens/creme belga com pessego.PNG", ingredient: "pessego" },
-    { id: 18, name: "Doce de Leite", img: "imagens/doce de leite.PNG", ingredient: "doce de leite" },
-    { id: 19, name: "Quatro Leite com Abacaxi e Coco ", img: "imagens/quatro leite com abacaxi e coco.PNG", ingredient: "abacaxi" },
-    { id: 20, name: "Doce de Leite com Coco ", img: "imagens/doce de leite com coco.PNG", ingredient: "coco" },
-    { id: 21, name: "Chocolate com Maracujá ", img: "imagens/chocolate com maracuja.PNG", ingredient: "maracuja" },
-    { id: 22, name: "Nata com Morango e Chocolate", img: "imagens/nata com morango e chocolate.PNG", ingredient: "chocolate" },
-    { id: 23, name: "Três Leites", img: "imagens/três leites.PNG", ingredient: "três leites" },
-    { id: 24, name: "Três Leites com Morango ", img: "imagens/tres leites com morango.PNG", ingredient: "morango" },
-    { id: 25, name: "Creme Belga com Morango e Suspiro ", img: "imagens/creme belga com morango e suspiro.PNG", ingredient: "morango" },
-    { id: 26, name: "Nata com Morango e Suspiro", img: "imagens/nata com morango e suspiro.PNG", ingredient: "morango" },
-    { id: 27, name: "Ninho com Nutella", img: "imagens/ninho com nutella.PNG", ingredient: "morango" },
-    { id: 28, name: "Ninho Trufado com Morango", img: "imagens/ninho trufado com morango.PNG", ingredient: "morango" },
-    { id: 29, name: "Quatro Leite com Chocolate", img: "imagens/quatro leite com chocolate.PNG", ingredient: "morango" },
-    { id: 30, name: "Trufado de Abacaxi com Chocolate Branco", img: "imagens/trufado de abacaxi com chocolate branco.PNG", ingredient: "morango" },
-    { id: 31, name: "Maracujá com Chocolate Branco", img: "imagens/maracuja com chocolate branco.PNG", ingredient: "morango" },
-    { id: 32, name: "Coco com Amêndoa", img: "imagens/Coco com Amendoa.PNG", ingredient: "morango" },
-    { id: 33, name: "Chocolate com Cereja", img: "imagens/Chocolate com Cereja.PNG", ingredient: "morango" },
-    { id: 34, name: "Doce de Leite com Ameixa", img: "imagens/ameixa.PNG", ingredient: "morango" },
-    { id: 42, name: "Limão com Chocolate", img: "imagens/mousse de limão.PNG", ingredient: "morango" },
-    { id: 35, name: "Brigadeiro", img: "imagens/brigadeiro.PNG", ingredient: "morango" },
-    { id: 36, name: "Beijinho", img: "imagens/beijinho.PNG", ingredient: "morango" },
-    { id: 37, name: "Churros", img: "imagens/churros.PNG", ingredient: "morango" },
-    { id: 38, name: "Beijinho de Ninho com Nutella", img: "imagens/ninho com nutella docinho.PNG", ingredient: "morango" },
-    { id: 39, name: "Flor de Ninho e Nutella", img: "imagens/docinhos em flor.PNG", ingredient: "morango" },
-    { id: 40, name: "Bolo de Cenoura", img: "imagens/bolo de cenoura com cobertura de chocolate.PNG", ingredient: "morango" },
-    { id: 41, name: "Bolo de Laranja", img: "imagens/bolo de laranja.PNG", ingredient: "morango" },
-    { id: 42, name: "Mousse de Maracujá", img: "imagens/mousse de maracuja.PNG", ingredient: "morango" },
-    { id: 43, name: "Pudim", img: "imagens/pudim2.PNG", ingredient: "morango" },
-    { id: 44, name: "Bolo Personalizado da Sua Escolha", img: "imagens/bolos perso.PNG", ingredient: "morango" },
+   
+    { name: "Creme Belga com Morango", img: "imagens/belga com morango.PNG", ingredient: "morango" },
+    { name: "Ninho com Morango", img: "imagens/ninho com morango.PNG", ingredient: "morango" },
+    { name: "Dois Amores", img: "imagens/dois amores.PNG", ingredient: "brigadeiro" },
+    { name: "Chocolate", img: "imagens/bolo de chocolate.PNG", ingredient: "chocolate" },
+    { name: "Ninho com Chocolate", img: "imagens/ninho com chocolate.PNG", ingredient: "chocolate" },
+    { name: "Creme de Ameindoim ", img: "imagens/creme de ameindoim.PNG", ingredient: "ameindoim" },
+    { name: "Nata com Morango ", img: "imagens/nata com morango.PNG", ingredient: "morango" },
+    { name: "Quatro Leite", img: "imagens/quatro leite.PNG", ingredient: "quatro leite" },
+    { name: "Creme Belga com Abacaxi e Coco", img: "imagens/belga com abacaxi e coco.PNG", ingredient: "abacaxi" },
+    { name: "Dois Amores com Maracujá ", img: "imagens/dois amores e maracuja.PNG", ingredient: "maracuja" },
+    { name: "Chocolate com Morango ", img: "imagens/chocolate com morango.PNG", ingredient: "morango" },
+    { name: "Quatro Leite com Morango", img: "imagens/quatro leite com morango.PNG", ingredient: "morango" },
+    { name: "Creme Belga com Pêssego", img: "imagens/creme belga com pessego.PNG", ingredient: "pessego" },
+    { name: "Doce de Leite", img: "imagens/doce de leite.PNG", ingredient: "doce de leite" },
+    { name: "Quatro Leite com Abacaxi e Coco ", img: "imagens/quatro leite com abacaxi e coco.PNG", ingredient: "abacaxi" },
+    { name: "Doce de Leite com Coco ", img: "imagens/doce de leite com coco.PNG", ingredient: "coco" },
+    { name: "Chocolate com Maracujá ", img: "imagens/chocolate com maracuja.PNG", ingredient: "maracuja" },
+    { name: "Nata com Morango e Chocolate", img: "imagens/nata com morango e chocolate.PNG", ingredient: "chocolate" },
+    { name: "Três Leites", img: "imagens/três leites.PNG", ingredient: "três leites" },
+    { name: "Prestígio", img: "imagens/prestígio.PNG", ingredient: "coco" },
+    { name: "Três Leites com Morango ", img: "imagens/tres leites com morango.PNG", ingredient: "morango" },
+    { name: "Creme Belga com Morango e Suspiro ", img: "imagens/creme belga com morango e suspiro.PNG", ingredient: "morango" },
+    { name: "Nata com Morango e Suspiro", img: "imagens/nata com morango e suspiro.PNG", ingredient: "morango" },
+    { name: "Ninho com Nutella", img: "imagens/ninho com nutella.PNG", ingredient: "morango" },
+    { name: "Ninho Trufado com Morango", img: "imagens/ninho trufado com morango.PNG", ingredient: "morango" },
+    { name: "Quatro Leite com Chocolate", img: "imagens/quatro leite com chocolate.PNG", ingredient: "morango" },
+    { name: "Creme Belga com Abacaxi", img: "imagens/belga com abacaxi.PNG", ingredient: "abacaxi" },
+     { name: "Doce de Leite com Abacaxi", img: "imagens/doce de leite com abacaxi.PNG", ingredient: "abacaxi" },
+    { name: "Trufado de Abacaxi com Chocolate Branco", img: "imagens/trufado de abacaxi com chocolate branco.PNG", ingredient: "morango" },
+    { name: "Maracujá com Chocolate Branco", img: "imagens/maracuja com chocolate branco.PNG", ingredient: "morango" },
+    { name: "Coco com Amêndoa", img: "imagens/Coco com Amendoa.PNG", ingredient: "morango" },
+    { name: "Chocolate com Cereja", img: "imagens/Chocolate com Cereja.PNG", ingredient: "morango" },
+    { name: "Doce de Leite com Ameixa", img: "imagens/ameixa.PNG", ingredient: "morango" },
+    { name: "Limão com Chocolate", img: "imagens/mousse de limão.PNG", ingredient: "morango" },
+    { name: "Brigadeiro", img: "imagens/brigadeiro.PNG", ingredient: "morango" },
+    { name: "Beijinho", img: "imagens/beijinho.PNG", ingredient: "morango" },
+    { name: "Churros", img: "imagens/churros.PNG", ingredient: "morango" },
+    { name: "Beijinho de Ninho com Nutella", img: "imagens/ninho com nutella docinho.PNG", ingredient: "morango" },
+    { name: "Flor de Ninho e Nutella", img: "imagens/docinhos em flor.PNG", ingredient: "morango" },
+    { name: "Bolo de Cenoura", img: "imagens/bolo de cenoura com cobertura de chocolate.PNG", ingredient: "morango" },
+    { name: "Bolo de Laranja", img: "imagens/bolo de laranja.PNG", ingredient: "morango" },
+    { name: "Mousse de Maracujá", img: "imagens/mousse de maracuja.PNG", ingredient: "morango" },
+    { name: "Pudim", img: "imagens/pudim2.PNG", ingredient: "morango" },
+    { name: "Personalizado da Sua Escolha", img: "imagens/bolos perso.PNG", ingredient: "morango" },
     ];
 
   const productList = document.getElementById("product-list");
@@ -109,19 +110,21 @@ document.addEventListener("DOMContentLoaded", function () {
       const filtered = selected === "todos" ? cakes : cakes.filter(cake => cake.ingredient === selected);
 
       filtered.forEach(cake => {
-        const card = document.createElement("div");
-        card.className = "col-md-3 mb-4";
+      const card = document.createElement("div");
+      card.className = "col-6 col-md-3 mb-4"; 
 
-        card.innerHTML = `
-          <div class="card h-100 text-center">
-            <img src="${cake.img}" alt="${cake.name}" class="card-img-top" />
-            <div class="card-body">
-              <small class="text-muted">#${cake.id}</small>
-              <h5 class="card-title mt-2">${cake.name}</h5>
-              <button class="btn-eu-quero mt-2">Eu Quero</button>
-            </div>
-          </div>
-        `;
+      card.innerHTML = `
+  <div class="card h-100 text-center">
+    <div class="img-container">
+      <img src="${cake.img}" alt="${cake.name}" class="card-img-top" />
+    </div>
+    <div class="card-body">
+      <h5 class="card-title mt-2">${cake.name}</h5>
+      <button class="btn-eu-quero mt-2">Eu Quero</button>
+    </div>
+  </div>
+`;
+
 
         const btnQuero = card.querySelector(".btn-eu-quero");
         btnQuero.addEventListener("click", () => {

@@ -27,19 +27,19 @@
 
 <section id="cardapio" class="container categorias-section">
   <h2 class="text-center mb-4 titulo-produtos">Minhas Delícias</h2>
-  <div class="row g-4">
+   <div class="row g-4 categorias-flex-container"> 
 
     <?php
     $categorias = [
-      ["id" => "filtro-bolos", "img" => "chocolate com morango.PNG", "nome" => "Bolos"],
+      ["id" => "filtro-bolos", "img" => "4.PNG", "nome" => "Bolos"],
       ["id" => "filtro-docinhos", "img" => "docinho.PNG", "nome" => "Docinhos"],
-      ["id" => "filtro-sobremesas", "img" => "pudim.PNG", "nome" => "Sobremesas"],
-      ["id" => "filtro-bolos-personalizados", "img" => "bolo personalizado.PNG", "nome" => "Bolos Personalizados"]
+      ["id" => "filtro-sobremesas", "img" => "pudim2.PNG", "nome" => "Sobremesas"],
+      ["id" => "filtro-bolos-personalizados", "img" => "pers.PNG", "nome" => "Bolos Personalizados"]
     ];
 
     foreach ($categorias as $cat) {
       echo '
-      <div class="col-6 col-md-3">
+       <div class="categoria-item-flex"> 
         <div class="categoria-card text-center" id="'.$cat["id"].'">
           <img src="imagens/'.$cat["img"].'" class="img-fluid rounded" alt="'.$cat["nome"].'" />
           <h5 class="mt-2">'.$cat["nome"].'</h5>
