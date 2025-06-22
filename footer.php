@@ -9,9 +9,9 @@
       <h4>Contato</h4>
       <p><i class="fab fa-whatsapp"></i> (44)98856-3181 </p>
       <div class="footer-social">
-        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-        <a href="https://wa.me/5599999999999" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.facebook.com/boleira.lia.com.br/" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/lbc12020" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/5544988563181"  target="_blank"><i class="fab fa-whatsapp"></i></a>
       </div>
     </div>
   </div>

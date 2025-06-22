@@ -34,7 +34,7 @@
       ["id" => "filtro-bolos", "img" => "4.PNG", "nome" => "Bolos"],
       ["id" => "filtro-docinhos", "img" => "docinho.PNG", "nome" => "Docinhos"],
       ["id" => "filtro-sobremesas", "img" => "pudim2.PNG", "nome" => "Sobremesas"],
-      ["id" => "filtro-bolos-personalizados", "img" => "pers.PNG", "nome" => "Bolos Personalizados"]
+      ["id" => "filtro-bolos-personalizados", "img" => "pers.PNG", "nome" => "Bolo Personalizado"]
     ];
 
     foreach ($categorias as $cat) {

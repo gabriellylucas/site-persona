@@ -13,7 +13,7 @@
 
   <?php include 'menu.php'; ?>
 
-  <section class="sobre-container mt-4 container">
+<section class="sobre-container mt-4">
     <div class="row align-items-center">
       <div class="col-md-5 sobre-foto">
         <img src="imagens/lia.jpg" alt="Foto da Lia" class="img-fluid rounded">

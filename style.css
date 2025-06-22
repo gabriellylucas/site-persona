@@ -830,3 +830,13 @@ body {
   scrollbar-width: thin;
   scrollbar-color: rgba(128, 128, 128, 0.4) transparent;
 }
+
+.sobre-container {
+  margin-bottom: 25px !important;
+}
+
+@media (max-width: 768px) {
+  .nav-underline {
+    display: none !important;
+  }
+}

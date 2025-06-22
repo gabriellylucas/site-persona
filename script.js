@@ -58,9 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
     { name: "Dois Amores", img: "imagens/dois amores.PNG", ingredient: ["brigadeiro", "beijinho"], categoria: "bolos" },
     { name: "Chocolate", img: "imagens/bolo de chocolate.PNG", ingredient: ["chocolate"], categoria: "bolos" },
     { name: "Ninho com Chocolate", img: "imagens/ninho com chocolate.PNG", ingredient: ["ninho", "chocolate"], categoria: "bolos" },
-    { name: "Creme de Amendoim ", img: "imagens/creme de ameindoim.PNG", ingredient: ["amendoim", "creme"], categoria: "bolos" }, 
+    { name: "Creme de Amendoim ", img: "imagens/creme de ameindoim.PNG", ingredient: ["amendoim", "creme"], categoria: "bolos" },
     { name: "Nata com Morango ", img: "imagens/nata com morango.PNG", ingredient: ["nata", "morango"], categoria: "bolos" },
-    { name: "Quatro Leites", img: "imagens/quatro leite.PNG", ingredient: ["quatro leites"], categoria: "bolos" }, 
+    { name: "Quatro Leites", img: "imagens/quatro leite.PNG", ingredient: ["quatro leites"], categoria: "bolos" },
     { name: "Creme Belga com Abacaxi e Coco", img: "imagens/belga com abacaxi e coco.PNG", ingredient: ["abacaxi", "coco", "creme belga"], categoria: "bolos" },
     { name: "Dois Amores com Maracujá ", img: "imagens/dois amores e maracuja.PNG", ingredient: ["brigadeiro", "beijinho", "maracuja"], categoria: "bolos" },
     { name: "Chocolate com Morango ", img: "imagens/chocolate com morango.PNG", ingredient: ["chocolate", "morango"], categoria: "bolos" },
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
     { name: "Chocolate com Maracujá ", img: "imagens/chocolate com maracuja.PNG", ingredient: ["chocolate", "maracuja"], categoria: "bolos" },
     { name: "Nata com Morango e Chocolate", img: "imagens/nata com morango e chocolate.PNG", ingredient: ["nata", "morango", "chocolate"], categoria: "bolos" },
     { name: "Três Leites", img: "imagens/três leites.PNG", ingredient: ["tres leites"], categoria: "bolos" },
-    { name: "Prestígio", img: "imagens/prestígio.PNG", ingredient: ["coco", "chocolate"], categoria: "bolos" }, 
+    { name: "Prestígio", img: "imagens/prestígio.PNG", ingredient: ["coco", "chocolate"], categoria: "bolos" },
     { name: "Três Leites com Morango ", img: "imagens/tres leites com morango.PNG", ingredient: ["tres leites", "morango"], categoria: "bolos" },
     { name: "Creme Belga com Morango e Suspiro ", img: "imagens/creme belga com morango e suspiro.PNG", ingredient: ["morango", "suspiro", "creme belga"], categoria: "bolos" },
     { name: "Nata com Morango e Suspiro", img: "imagens/nata com morango e suspiro.PNG", ingredient: ["nata", "morango", "suspiro"], categoria: "bolos" },
@@ -88,15 +88,15 @@ document.addEventListener("DOMContentLoaded", function () {
     { name: "Doce de Leite com Ameixa", img: "imagens/ameixa.PNG", ingredient: ["doce de leite", "ameixa"], categoria: "bolos" },
     { name: "Limão com Chocolate", img: "imagens/mousse de limão.PNG", ingredient: ["limao", "chocolate"], categoria: "bolos" },
     { name: "Brigadeiro", img: "imagens/brigadeiro.PNG", ingredient: ["brigadeiro"], categoria: "docinhos" },
-    { name: "Beijinho", img: "imagens/beijinho.PNG", ingredient: ["coco"], categoria: "docinhos" }, 
-    { name: "Churros", img: "imagens/churros.PNG", ingredient: ["doce de leite", "canela"], categoria: "docinhos" }, 
+    { name: "Beijinho", img: "imagens/beijinho.PNG", ingredient: ["coco"], categoria: "docinhos" },
+    { name: "Churros", img: "imagens/churros.PNG", ingredient: ["doce de leite", "canela"], categoria: "docinhos" },
     { name: "Beijinho de Ninho com Nutella", img: "imagens/ninho com nutella docinho.PNG", ingredient: ["ninho", "nutella"], categoria: "docinhos" },
     { name: "Flor de Ninho e Nutella", img: "imagens/docinhos em flor.PNG", ingredient: ["ninho", "nutella"], categoria: "docinhos" },
     { name: "Bolo de Cenoura", img: "imagens/bolo de cenoura com cobertura de chocolate.PNG", ingredient: ["cenoura", "chocolate"], categoria: "sobremesas" },
     { name: "Bolo de Laranja", img: "imagens/bolo de laranja.PNG", ingredient: ["laranja"], categoria: "sobremesas" },
     { name: "Mousse de Maracujá", img: "imagens/mousse de maracuja.PNG", ingredient: ["maracuja"], categoria: "sobremesas" },
-    { name: "Pudim", img: "imagens/pudim2.PNG", ingredient: ["caramelo", "leite condensado"], categoria: "sobremesas" }, 
-    { name: "Personalizado da Sua Escolha", img: "imagens/pers.PNG", ingredient: ["personalizado"], categoria: "bolos-personalizados" }, 
+    { name: "Pudim", img: "imagens/pudim2.PNG", ingredient: ["caramelo", "leite condensado"], categoria: "sobremesas" },
+    { name: "Personalizado", img: "imagens/pers.PNG", ingredient: ["personalizado"], categoria: "bolos-personalizados" },
   ];
 
   const productList = document.getElementById("product-list");
@@ -113,14 +113,10 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       if (ingredientFilter !== "todos") {
-        // Agora, para cada bolo, garantimos que 'ingredient' é um array
         filteredCakes = filteredCakes.filter(cake => {
-          // Verifica se cake.ingredient é um array antes de usar .includes()
-          // Isso previne erros se, por algum motivo, um 'ingredient' não for um array.
           if (Array.isArray(cake.ingredient)) {
             return cake.ingredient.includes(ingredientFilter);
           }
-          // Se não for um array, ou se for indefinido/nulo, não inclui no filtro
           return false;
         });
       }
@@ -143,7 +139,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const btnQuero = card.querySelector(".btn-eu-quero");
         btnQuero.addEventListener("click", () => {
-          const mensagem = `Olá! Gostaria de encomendar o bolo de ${cake.name}, por favor.`;
+          let tipo = "";
+
+          switch (cake.categoria) {
+            case "bolos":
+              tipo = "bolo de";
+              break;
+            case "docinhos":
+              tipo = "docinho";
+              break;
+            case "sobremesas":
+              tipo = "";
+              break;
+            case "bolos-personalizados":
+              tipo = "";
+              break;
+            default:
+              tipo = "";
+          }
+          let mensagem = "";
+
+          if (cake.categoria === "bolos-personalizados") {
+            mensagem = "Olá! Gostaria de encomendar o Bolo Personalizado, por favor.";
+          } else {
+            const nomeProduto = tipo ? `${tipo} ${cake.name}` : cake.name;
+            mensagem = `Olá! Gostaria de encomendar o ${nomeProduto}, por favor.`;
+          }
+
           const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
           window.open(urlWhatsApp, "_blank");
         });
@@ -157,8 +179,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     filter.addEventListener("change", () => {
-      // É crucial que os valores dos <option> no HTML correspondam aos nomes dos ingredientes no array "cakes"
-      // Se você padronizou tudo para minúsculas no array, os values no HTML também devem ser minúsculas.
       renderCakes("todos", filter.value);
     });
 
