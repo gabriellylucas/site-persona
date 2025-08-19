@@ -35,18 +35,18 @@
         </div>
       </div>
 
-      <div class="row mb-3">
-        <div class="col-md-8">
-          <label for="endereco" class="form-label">Endereço completo</label>
-          <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Rua, número, cidade ou CEP" />
-        </div>
-      </div>
+      <div class="col-md-8 mb-3">
+  <label for="endereco" class="form-label">Endereço completo</label>
+  <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Rua, número, cidade ou CEP" />
+  <div class="invalid-feedback">Por favor, informe um endereço válido ou apenas o CEP.</div>
+</div>
 
       <div class="mb-3">
         <label for="assunto" class="form-label">Assunto</label>
         <select class="form-select select-rosinha" id="assunto" name="assunto" required>
           <option value="" selected>Escolha um assunto</option>
-          <option value="pedido">Feedback</option>
+          <<option value="pedido">Pedido</option>
+          <option value="feedback">Feedback</option>
           <option value="duvida">Dúvida</option>
           <option value="reclamacao">Reclamação</option>
           <option value="outros">Outros</option>

@@ -1,3 +1,9 @@
+<?php
+include 'conexao.php';
+
+$stmt = $pdo->query("SELECT * FROM produtos WHERE ativo = 1");
+$produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -88,8 +94,25 @@
 
 <section class="container mt-0 mb-5">
   <div class="row g-4" id="product-list">
+    <?php foreach($produtos as $p): ?>
+      <div class="col-md-4">
+        <div class="card h-100">
+          <?php if(!empty($p['imagem_url'])): ?>
+            <img src="<?php echo $p['imagem_url']; ?>" class="card-img-top" alt="<?php echo $p['nome']; ?>">
+          <?php else: ?>
+            <img src="imagens/default.png" class="card-img-top" alt="<?php echo $p['nome']; ?>">
+          <?php endif; ?>
+          <div class="card-body">
+            <h5 class="card-title"><?php echo $p['nome']; ?></h5>
+            <p class="card-text"><?php echo $p['descricao']; ?></p>
+            <p class="card-text"><strong>R$ <?php echo number_format($p['preco'], 2, ',', '.'); ?></strong></p>
+          </div>
+        </div>
+      </div>
+    <?php endforeach; ?>
   </div>
 </section>
+
 
 <?php include 'footer.php'; ?>
 

@@ -34,7 +34,6 @@
   box-shadow: none !important;
 }
 
-
 .navbar {
   background-color: #FADADD;
 }
@@ -839,4 +838,10 @@ body {
   .nav-underline {
     display: none !important;
   }
+}
+
+#assunto {
+  max-width: 263px;
+  width: 100%;
+  display: block;
 }
