@@ -1,6 +1,6 @@
 
 <?php
-class PedidoItem {
+class PedidoItens {
     private PDO $pdo;
 
     public function __construct(PDO $pdo) {

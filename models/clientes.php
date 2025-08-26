@@ -1,6 +1,6 @@
 
 <?php
-class Cliente {
+class Clientes {
     private PDO $pdo;
 
     public function __construct(PDO $pdo) {
