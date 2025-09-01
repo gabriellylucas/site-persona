@@ -1,3 +1,5 @@
+<?php include __DIR__ . '/../admin/navbar_admin.php'; ?>
+
 <h1>Itens do Pedido <?= $pedidoId ?></h1>
 <a href="index.php?page=pedido_itens_adicionar&pedido_id=<?= $pedidoId ?>">Adicionar Produto</a>
 <table border="1" cellpadding="5" cellspacing="0">
@@ -31,3 +33,5 @@
         <td colspan="2"><strong><?= number_format($total, 2, ',', '.') ?></strong></td>
     </tr>
 </table>
+
+<?php include __DIR__ . '/../admin/footer_admin.php'; ?>

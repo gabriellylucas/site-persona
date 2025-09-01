@@ -1,3 +1,5 @@
+<?php include __DIR__ . '/../admin/navbar_admin.php'; ?>
+
 <h1>Adicionar Produto ao Pedido <?= $pedidoId ?></h1>
 <form method="post">
     Produto:
@@ -13,3 +15,5 @@
 
     <button type="submit">Adicionar</button>
 </form>
+
+<?php include __DIR__ . '/../admin/footer_admin.php'; ?>

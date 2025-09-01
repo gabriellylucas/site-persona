@@ -1,3 +1,5 @@
+<?php include __DIR__ . '/../admin/navbar_admin.php'; ?>
+
 <h1>Cadastrar Pedido</h1>
 <form method="post">
     Cliente:
@@ -12,3 +14,5 @@
 
     <button type="submit">Cadastrar</button>
 </form>
+
+<?php include __DIR__ . '/../admin/footer_admin.php'; ?>

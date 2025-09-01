@@ -1,3 +1,5 @@
+<?php include __DIR__ . '/../admin/navbar_admin.php'; ?>
+
 <h1>Produtos</h1>
 <a href="index.php?page=produtos_cadastrar">Novo Produto</a>
 <table border="1" cellpadding="5" cellspacing="0">
@@ -21,3 +23,5 @@
         </tr>
     <?php endforeach; ?>
 </table>
+
+<?php include __DIR__ . '/../admin/footer_admin.php'; ?>
