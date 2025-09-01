@@ -29,7 +29,6 @@ switch ($page) {
         $controller->excluir();
         break;
 
-
     case 'produtos_listar':
         require 'controllers/ProdutoController.php';
         $controller = new ProdutoController($pdo);
@@ -53,7 +52,6 @@ switch ($page) {
         $controller = new ProdutoController($pdo);
         $controller->excluir();
         break;
-
 
     case 'pedidos_listar':
         require 'controllers/PedidoController.php';
@@ -79,6 +77,27 @@ switch ($page) {
         $controller->excluir();
         break;
 
+    case 'pedido_itens_listar':
+        require 'controllers/PedidoItensController.php';
+        $pedidoId = (int)($_GET['pedido_id'] ?? 0);
+        $controller = new PedidoItensController($pdo);
+        $controller->listarItens($pedidoId);
+        break;
+
+    case 'pedido_itens_adicionar':
+        require 'controllers/PedidoItensController.php';
+        $pedidoId = (int)($_GET['pedido_id'] ?? 0);
+        $controller = new PedidoItensController($pdo);
+        $controller->adicionarItem($pedidoId);
+        break;
+
+    case 'pedido_itens_remover':
+        require 'controllers/PedidoItensController.php';
+        $pedidoId = (int)($_GET['pedido_id'] ?? 0);
+        $itemId = (int)($_GET['item_id'] ?? 0);
+        $controller = new PedidoItensController($pdo);
+        $controller->removerItem($pedidoId, $itemId);
+        break;
 
     case 'home':
         include 'home.php';
