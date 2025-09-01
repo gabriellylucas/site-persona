@@ -1,6 +1,5 @@
-
 <?php
-class Produtos {
+class Produto {
     private PDO $pdo;
 
     public function __construct(PDO $pdo) {
@@ -18,31 +17,29 @@ class Produtos {
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
-    public function create(string $nome, string $descricao, float $preco, int $estoque): int {
+    public function create(string $nome, string $descricao, float $preco): int {
         $stmt = $this->pdo->prepare(
-            "INSERT INTO produtos (nome, descricao, preco, estoque) 
-             VALUES (:nome, :descricao, :preco, :estoque)"
+            "INSERT INTO produtos (nome, descricao, preco) 
+             VALUES (:nome, :descricao, :preco)"
         );
         $stmt->execute([
             ':nome' => $nome,
             ':descricao' => $descricao,
-            ':preco' => $preco,
-            ':estoque' => $estoque
+            ':preco' => $preco
         ]);
         return (int)$this->pdo->lastInsertId();
     }
 
-    public function update(int $id, string $nome, string $descricao, float $preco, int $estoque): bool {
+    public function update(int $id, string $nome, string $descricao, float $preco): bool {
         $stmt = $this->pdo->prepare(
             "UPDATE produtos 
-             SET nome = :nome, descricao = :descricao, preco = :preco, estoque = :estoque 
+             SET nome = :nome, descricao = :descricao, preco = :preco 
              WHERE id = :id"
         );
         return $stmt->execute([
             ':nome' => $nome,
             ':descricao' => $descricao,
             ':preco' => $preco,
-            ':estoque' => $estoque,
             ':id' => $id
         ]);
     }
