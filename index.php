@@ -99,6 +99,24 @@ switch ($page) {
         $controller->removerItem($pedidoId, $itemId);
         break;
 
+    case 'login':
+        require 'controllers/LoginController.php';
+        $controller = new LoginController($pdo);
+        $controller->index();
+        break;
+
+    case 'autenticar':
+        require 'controllers/LoginController.php';
+        $controller = new LoginController($pdo);
+        $controller->autenticar();
+        break;
+
+    case 'logout':
+        require 'controllers/LoginController.php';
+        $controller = new LoginController($pdo);
+        $controller->logout();
+        break;
+
     case 'home':
         include 'home.php';
         break;

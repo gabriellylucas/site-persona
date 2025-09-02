@@ -845,3 +845,223 @@ body {
   width: 100%;
   display: block;
 }
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.login-page {
+    background: linear-gradient(to bottom right, #f8e1e6, #f5ced3);
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+
+body.login-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom right, #f8e1e6, #f5ced3);
+    filter: blur(8px);
+    z-index: -1;
+}
+
+
+body.login-page::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(243,182,201,0.15) 0%, transparent 70%);
+    z-index: -1;
+}
+
+.login-container {
+    background-color: rgba(255, 255, 255, 0.88);
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    position: relative;
+    z-index: 1;
+}
+
+.login-container h2 {
+    font-family: 'Playfair Display', serif;
+    color: #b14d3a;
+    font-size: 2rem;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container label {
+    display: block;
+    text-align: left;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #5C4033;
+    font-size: 0.95rem;
+    margin-top: 15px;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    border-radius: 12px;
+    border: 2px solid #fadadd;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #fff7f3;
+    color: #5C4033;
+}
+
+.login-container input:focus {
+    border-color: #f3b6c9;
+    box-shadow: 0 0 12px rgba(243,182,201,0.4);
+}
+
+.login-container button {
+    width: 100%;
+    padding: 12px 0;
+    margin-top: 20px;
+    background-color: #f3b6c9;
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-container button:hover {
+    background-color: #e89aaf;
+    transform: scale(1.03);
+    box-shadow: 0 6px 15px rgba(232,154,175,0.5);
+}
+
+.login-container p {
+    color: #b14d3a;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.login-container a {
+    color: #b14d3a;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.login-container a:hover {
+    color: #f3b6c9;
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #d9534f;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+
+.login-container::before {
+    content: "✽";
+    font-size: 24px;
+    color: #f3b6c9;
+    display: block;
+    margin-bottom: 10px;
+}
+
+
+.floating-element {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(243, 182, 201, 0.2);
+    z-index: -1;
+}
+
+.floating-element:nth-child(1) {
+    width: 150px;
+    height: 150px;
+    top: 10%;
+    left: 10%;
+    animation: float 15s infinite ease-in-out;
+}
+
+.floating-element:nth-child(2) {
+    width: 100px;
+    height: 100px;
+    bottom: 15%;
+    right: 15%;
+    animation: float 12s infinite ease-in-out reverse;
+}
+
+.floating-element:nth-child(3) {
+    width: 80px;
+    height: 80px;
+    top: 60%;
+    left: 20%;
+    animation: float 18s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+    }
+    25% {
+        transform: translateY(-20px) translateX(10px);
+    }
+    50% {
+        transform: translateY(10px) translateX(20px);
+    }
+    75% {
+        transform: translateY(20px) translateX(-10px);
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: 30px 20px;
+    }
+    
+    .login-container h2 {
+        font-size: 1.6rem;
+    }
+    
+    body.login-page::before {
+        filter: blur(5px);
+    }
+} 

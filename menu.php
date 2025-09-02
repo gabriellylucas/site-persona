@@ -9,7 +9,7 @@
         <li class="nav-item"><a class="nav-link" href="index.php#inicio">Início</a></li>
         <li class="nav-item"><a class="nav-link" href="index.php#cardapio">Cardápio</a></li>
         <li class="nav-item"><a class="nav-link" href="sobre.php">Sobre</a></li>
-        <li class="nav-item"><a class="nav-link pedido-btn" href="index.php#cardapio">Faça seu pedido</a></li>
+       <li class="nav-item"><a class="nav-link pedido-btn" href="index.php?page=login">Login</a></li>
       </ul>
        <div class="nav-underline"></div> 
     </div>
