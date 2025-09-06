@@ -996,16 +996,6 @@ body.login-page::after {
     font-size: 0.9rem;
 }
 
-
-.login-container::before {
-    content: "✽";
-    font-size: 24px;
-    color: #f3b6c9;
-    display: block;
-    margin-bottom: 10px;
-}
-
-
 .floating-element {
     position: absolute;
     border-radius: 50%;
