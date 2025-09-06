@@ -7,7 +7,7 @@ class LoginController {
 
     public function __construct($pdo) {
         $this->usuarioModel = new Usuario($pdo);
-        $this->pdo = $pdo; // guardar o PDO para usar no registrar
+        $this->pdo = $pdo; 
     }
 
     public function index() {
@@ -24,7 +24,7 @@ class LoginController {
             if ($user) {
                 session_start();
                 $_SESSION['user_id'] = $user['id'];
-                $_SESSION['username'] = $user['nome']; // ajustei para 'nome' que existe no banco
+                $_SESSION['username'] = $user['nome']; 
                 $_SESSION['role'] = $user['role'];
 
                 if ($user['role'] === 'admin') {
