@@ -117,6 +117,16 @@ switch ($page) {
         $controller->logout();
         break;
 
+        case 'cadastro':
+    require 'views/login/cadastro.php';
+    break;
+
+    case 'registrar':
+    require 'controllers/LoginController.php';
+    $controller = new LoginController($pdo);
+    $controller->registrar();
+    break;
+
     case 'home':
         include 'home.php';
         break;
