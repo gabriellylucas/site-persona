@@ -2,7 +2,6 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta charset="UTF-8">
   <title>Login</title>
   <link rel="stylesheet" href="style.css"> 
 </head>
@@ -20,7 +19,6 @@
       <button type="submit">Login</button>
     </form>
 
-
     <?php if (!empty($error)): ?>
       <p style="color:red;">
         <?= htmlspecialchars($error) ?>
@@ -28,6 +26,10 @@
     <?php endif; ?>
 
     <p>Ainda não tem cadastro? <a href="index.php?page=cadastro">Clique aqui</a></p>
+
+    <p class="voltar">
+      <a href="index.php?page=home">← Voltar para o início</a>
+    </p>
   </div>
 </body>
 </html>

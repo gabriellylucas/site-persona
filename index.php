@@ -117,15 +117,23 @@ switch ($page) {
         $controller->logout();
         break;
 
-        case 'cadastro':
-    require 'views/login/cadastro.php';
-    break;
+    case 'cadastro':
+        require 'views/login/cadastro.php';
+        break;
 
     case 'registrar':
-    require 'controllers/LoginController.php';
-    $controller = new LoginController($pdo);
-    $controller->registrar();
-    break;
+        require 'controllers/LoginController.php';
+        $controller = new LoginController($pdo);
+        $controller->registrar();
+        break;
+
+    case 'admin':
+        require 'views/admin/dashboard.php';
+        break;
+
+    case 'area_cliente':
+        require 'views/home.php';
+        break;
 
     case 'home':
         include 'home.php';
@@ -133,5 +141,6 @@ switch ($page) {
 
     default:
         include '404.php';
+        break;
 }
 ?>

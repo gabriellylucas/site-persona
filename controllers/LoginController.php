@@ -11,6 +11,7 @@ class LoginController {
     }
 
     public function index() {
+        $error = "";
         require 'views/login/login.php';
     }
 
@@ -23,11 +24,11 @@ class LoginController {
 
             if ($user) {
                 session_start();
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['username'] = $user['nome']; 
-                $_SESSION['role'] = $user['role'];
+                $_SESSION['usuario_id'] = $user['id'];
+                $_SESSION['nome'] = $user['nome']; 
+                $_SESSION['tipo'] = $user['tipo']; 
 
-                if ($user['role'] === 'admin') {
+                if ($user['tipo'] === 'admin') {
                     header('Location: index.php?page=admin');
                 } else {
                     header('Location: index.php?page=area_cliente');
@@ -44,18 +45,15 @@ class LoginController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nome = $_POST['nome'];
             $email = $_POST['email'];
-            $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+            $senha = $_POST['senha'];
 
-            $stmt = $this->pdo->prepare(
-                "INSERT INTO clientes (nome, email, senha, role) VALUES (?, ?, ?, 'cliente')"
-            );
+            $success = $this->usuarioModel->registrar($nome, $email, $senha);
 
-            try {
-                $stmt->execute([$nome, $email, $senha]);
+            if ($success) {
                 header('Location: index.php?page=login');
                 exit;
-            } catch (PDOException $e) {
-                $error = "Erro ao cadastrar: " . $e->getMessage();
+            } else {
+                $error = "Erro ao cadastrar usuário!";
                 require 'views/login/cadastro.php';
             }
         }

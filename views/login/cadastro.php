@@ -27,6 +27,10 @@
     <?php endif; ?>
 
     <p>Já tem conta? <a href="index.php?page=login">Entrar</a></p>
+
+    <p class="voltar">
+      <a href="index.php?page=home">← Voltar para o início</a>
+    </p>
   </div>
 </body>
 </html>
