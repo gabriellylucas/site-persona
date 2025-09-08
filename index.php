@@ -112,6 +112,24 @@ switch ($page) {
         $controller->registrar();
         break;
 
+       
+    case 'admin_categorias_list':
+    require __DIR__ . '/views/admin/categorias_list.php';
+    break;
+
+    case 'admin_categorias_add':
+    require __DIR__ . '/views/admin/categorias_add.php';
+    break;
+
+    case 'admin_categorias_edit':
+    require __DIR__ . '/views/admin/categorias_edit.php';
+    break;
+
+    case 'admin_categorias_delete':
+    require __DIR__ . '/views/admin/categorias_delete.php';
+    break;
+
+
 
     case 'admin':
         require 'views/admin/dashboard.php';
