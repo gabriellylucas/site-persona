@@ -10,19 +10,16 @@ switch ($page) {
         $controller = new ClienteController($pdo);
         $controller->listar();
         break;
-
     case 'clientes_cadastrar':
         require 'controllers/ClienteController.php';
         $controller = new ClienteController($pdo);
         $controller->cadastrar();
         break;
-
     case 'clientes_editar':
         require 'controllers/ClienteController.php';
         $controller = new ClienteController($pdo);
         $controller->editar();
         break;
-
     case 'clientes_excluir':
         require 'controllers/ClienteController.php';
         $controller = new ClienteController($pdo);
@@ -34,19 +31,16 @@ switch ($page) {
         $controller = new ProdutoController($pdo);
         $controller->listar();
         break;
-
-    case 'produtos_cadastrar':
+    case 'produtos_cadastrar':   
         require 'controllers/ProdutoController.php';
         $controller = new ProdutoController($pdo);
         $controller->cadastrar();
         break;
-
     case 'produtos_editar':
         require 'controllers/ProdutoController.php';
         $controller = new ProdutoController($pdo);
         $controller->editar();
         break;
-
     case 'produtos_excluir':
         require 'controllers/ProdutoController.php';
         $controller = new ProdutoController($pdo);
@@ -58,19 +52,16 @@ switch ($page) {
         $controller = new PedidoController($pdo);
         $controller->listar();
         break;
-
     case 'pedidos_cadastrar':
         require 'controllers/PedidoController.php';
         $controller = new PedidoController($pdo);
         $controller->cadastrar();
         break;
-
     case 'pedidos_editar':
         require 'controllers/PedidoController.php';
         $controller = new PedidoController($pdo);
         $controller->editar();
         break;
-
     case 'pedidos_excluir':
         require 'controllers/PedidoController.php';
         $controller = new PedidoController($pdo);
@@ -83,14 +74,12 @@ switch ($page) {
         $controller = new PedidoItensController($pdo);
         $controller->listarItens($pedidoId);
         break;
-
     case 'pedido_itens_adicionar':
         require 'controllers/PedidoItensController.php';
         $pedidoId = (int)($_GET['pedido_id'] ?? 0);
         $controller = new PedidoItensController($pdo);
         $controller->adicionarItem($pedidoId);
         break;
-
     case 'pedido_itens_remover':
         require 'controllers/PedidoItensController.php';
         $pedidoId = (int)($_GET['pedido_id'] ?? 0);
@@ -104,28 +93,25 @@ switch ($page) {
         $controller = new LoginController($pdo);
         $controller->index();
         break;
-
     case 'autenticar':
         require 'controllers/LoginController.php';
         $controller = new LoginController($pdo);
         $controller->autenticar();
         break;
-
     case 'logout':
         require 'controllers/LoginController.php';
         $controller = new LoginController($pdo);
         $controller->logout();
         break;
-
     case 'cadastro':
         require 'views/login/cadastro.php';
         break;
-
     case 'registrar':
         require 'controllers/LoginController.php';
         $controller = new LoginController($pdo);
         $controller->registrar();
         break;
+
 
     case 'admin':
         require 'views/admin/dashboard.php';
@@ -134,7 +120,6 @@ switch ($page) {
     case 'area_cliente':
         require 'views/home.php';
         break;
-
     case 'home':
         include 'home.php';
         break;

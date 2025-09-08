@@ -31,7 +31,7 @@ class LoginController {
                 if ($user['tipo'] === 'admin') {
                     header('Location: index.php?page=admin');
                 } else {
-                    header('Location: index.php?page=area_cliente');
+                    header('Location: index.php?page=home');
                 }
                 exit;
             } else {
