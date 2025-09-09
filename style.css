@@ -1055,3 +1055,17 @@ body.login-page::after {
         filter: blur(5px);
     }
 } 
+
+.favorite-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #d97b93;
+  font-size: 2rem;
+  transition: transform 0.2s;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.2);
+}
+

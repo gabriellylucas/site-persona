@@ -101,6 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const productList = document.getElementById("product-list");
   const filter = document.getElementById("filter");
+
   const numeroWhatsApp = "5544988563181";
 
   if (productList && filter) {
@@ -125,17 +126,24 @@ document.addEventListener("DOMContentLoaded", function () {
         const card = document.createElement("div");
         card.className = "col-6 col-md-3 mb-4";
 
-        card.innerHTML = `
-          <div class="card h-100 text-center">
-            <div class="img-container">
-              <img src="${cake.img}" alt="${cake.name}" class="card-img-top" />
-            </div>
-            <div class="card-body">
-              <h5 class="card-title mt-2">${cake.name}</h5>
-              <button class="btn-eu-quero mt-2">Eu Quero</button>
-            </div>
-          </div>
-        `;
+     card.innerHTML = `
+  <div class="card h-100 text-center position-relative">
+    <button class="favorite-btn position-absolute top-0 end-0 m-2">
+      <i class="fa-regular fa-heart fs-3" style="color: pink;"></i>
+    </button>
+
+    <div class="img-container">
+      <img src="${cake.img}" alt="Produto" class="card-img-top" />
+    </div>
+    <div class="card-body">
+      <h5 class="card-title mt-2">${cake.name || 'Produto'}</h5>
+      <div class="d-flex justify-content-center mt-2">
+        <button class="btn-eu-quero btn btn-success">Eu Quero</button>
+      </div>
+    </div>
+  </div>
+`;
+
 
         const btnQuero = card.querySelector(".btn-eu-quero");
         btnQuero.addEventListener("click", () => {
@@ -341,4 +349,47 @@ document.addEventListener("DOMContentLoaded", function () {
       return /^[0-9]+$/.test(numeros) && (numeros.length === 10 || numeros.length === 11);
     }
   }
+
+document.addEventListener("click", function (e) {
+  if (e.target.closest(".favorite-btn")) {
+    const btn = e.target.closest(".favorite-btn");
+    const icon = btn.querySelector("i");
+    const productName = btn.getAttribute("data-name");
+
+   
+    icon.classList.toggle("fa-regular");
+    icon.classList.toggle("fa-solid");
+
+    
+    let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+
+    if (favoritos.includes(productName)) {
+      
+      favoritos = favoritos.filter(item => item !== productName);
+    } else {
+      
+      favoritos.push(productName);
+    }
+
+    
+    localStorage.setItem("favoritos", JSON.stringify(favoritos));
+  }
+});
+
+
+function marcarFavoritos() {
+  let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+  document.querySelectorAll(".favorite-btn").forEach(btn => {
+    const productName = btn.getAttribute("data-name");
+    const icon = btn.querySelector("i");
+    if (favoritos.includes(productName)) {
+      icon.classList.remove("fa-regular");
+      icon.classList.add("fa-solid");
+    }
+  });
+}
+
+marcarFavoritos();
+
+
 });

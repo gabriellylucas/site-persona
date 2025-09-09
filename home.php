@@ -18,7 +18,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 
-  <?php include 'menu.php'; ?>
+<?php include 'menu.php'; ?>
 
 <div class="banner-container">
   <img src="imagens/bolo4.png" alt="logo" class="img-fluid w-100" />
@@ -33,8 +33,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <section id="cardapio" class="container categorias-section">
   <h2 class="text-center mb-4 titulo-produtos">Minhas Delícias</h2>
-   <div class="row g-4 categorias-flex-container"> 
-
+  <div class="row g-4 categorias-flex-container">
     <?php
     $categorias = [
       ["id" => "filtro-bolos", "img" => "4.PNG", "nome" => "Bolos"],
@@ -45,27 +44,27 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($categorias as $cat) {
       echo '
-       <div class="categoria-item-flex"> 
-        <div class="categoria-card text-center" id="'.$cat["id"].'">
-          <img src="imagens/'.$cat["img"].'" class="img-fluid rounded" alt="'.$cat["nome"].'" />
-          <h5 class="mt-2">'.$cat["nome"].'</h5>
+      <div class="categoria-item-flex col-6 col-md-3 text-center mb-3"> 
+        <div class="categoria-card p-2" id="'.$cat["id"].'">
+          <img src="imagens/'.$cat["img"].'" class="img-fluid rounded mb-2" alt="'.$cat["nome"].'" />
+          <h5>'.$cat["nome"].'</h5>
         </div>
       </div>';
     }
     ?>
-
   </div>
 </section>
 
-<section class="container">
-  <div class="filter-section text-center">
+<section class="container mb-5">
+  <div class="filter-section text-center mb-4">
     <label for="filter" class="form-label">Ou escolha seu ingrediente favorito:</label>
     <select class="form-select w-auto d-inline-block" id="filter">
       <option value="todos">Todos os ingredientes</option>
       <option value="morango">Morango</option>
       <option value="chocolate">Chocolate</option>
       <option value="abacaxi">Abacaxi</option>
-      <option value="creme belga">Creme Belga</option> <option value="ninho">Ninho</option>
+      <option value="creme belga">Creme Belga</option>
+      <option value="ninho">Ninho</option>
       <option value="brigadeiro">Brigadeiro</option>
       <option value="beijinho">Beijinho</option>
       <option value="amendoim">Amendoim</option>
@@ -88,24 +87,26 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <option value="caramelo">Caramelo</option>
       <option value="leite condensado">Leite Condensado</option>
       <option value="canela">Canela</option>
-      </select>
+    </select>
   </div>
-</section>
 
-<section class="container mt-0 mb-5">
   <div class="row g-4" id="product-list">
     <?php foreach($produtos as $p): ?>
       <div class="col-md-4">
         <div class="card h-100">
-          <?php if(!empty($p['imagem_url'])): ?>
-            <img src="<?php echo $p['imagem_url']; ?>" class="card-img-top" alt="<?php echo $p['nome']; ?>">
-          <?php else: ?>
-            <img src="imagens/default.png" class="card-img-top" alt="<?php echo $p['nome']; ?>">
-          <?php endif; ?>
+          <img src="<?php echo !empty($p['imagem_url']) ? $p['imagem_url'] : 'imagens/default.png'; ?>" class="card-img-top" alt="<?php echo $p['nome']; ?>">
+
           <div class="card-body">
             <h5 class="card-title"><?php echo $p['nome']; ?></h5>
             <p class="card-text"><?php echo $p['descricao']; ?></p>
             <p class="card-text"><strong>R$ <?php echo number_format($p['preco'], 2, ',', '.'); ?></strong></p>
+
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <button class="btn btn-primary btn-eu-quero">Eu Quero</button>
+              <button class="favorite-btn" data-name="<?php echo $p['nome']; ?>">
+                <i class="fa-regular fa-heart"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -113,13 +114,9 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </div>
 </section>
 
-
 <?php include 'footer.php'; ?>
-
-<div id="lista-bolos"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="script.js"></script>
-
 </body>
 </html>
