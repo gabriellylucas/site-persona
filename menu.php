@@ -16,7 +16,7 @@
 
         <?php if (isset($_SESSION['usuario_id'])): ?>
           <li class="nav-item">
-            <a class="nav-link pedido-btn" href="favoritos.php" title="Meus Favoritos">❤️ Favoritos</a>
+         <a class="nav-link pedido-btn" href="views/clientes/favoritos.php" title="Meus Favoritos">❤️ Favoritos</a>
           </li>
          <li class="nav-item">
   <a class="nav-link btn btn-danger text-white ms-2" href="logout.php" title="Sair">
