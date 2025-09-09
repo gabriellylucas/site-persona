@@ -1,4 +1,3 @@
-
 <?php
 class Cliente {
     private PDO $pdo;
@@ -18,9 +17,20 @@ class Cliente {
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
-    public function create(string $nome, string $email): int {
-        $stmt = $this->pdo->prepare("INSERT INTO clientes (nome, email) VALUES (:nome, :email)");
-        $stmt->execute([':nome' => $nome, ':email' => $email]);
+    public function getByEmail(string $email): ?array {
+        $stmt = $this->pdo->prepare("SELECT * FROM clientes WHERE email = :email");
+        $stmt->execute([':email' => $email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+    }
+
+    public function create(string $nome, string $email, string $senha): int {
+        $hash = password_hash($senha, PASSWORD_DEFAULT);
+        $stmt = $this->pdo->prepare("INSERT INTO clientes (nome, email, senha) VALUES (:nome, :email, :senha)");
+        $stmt->execute([
+            ':nome' => $nome,
+            ':email' => $email,
+            ':senha' => $hash
+        ]);
         return (int)$this->pdo->lastInsertId();
     }
 
@@ -32,5 +42,11 @@ class Cliente {
     public function delete(int $id): bool {
         $stmt = $this->pdo->prepare("DELETE FROM clientes WHERE id = :id");
         return $stmt->execute([':id' => $id]);
+    }
+
+    public function temPedidos(int $clienteId): bool {
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM pedidos WHERE cliente_id = :id");
+        $stmt->execute([':id' => $clienteId]);
+        return $stmt->fetchColumn() > 0;
     }
 }

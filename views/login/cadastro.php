@@ -19,7 +19,7 @@
       <label for="senha">Senha:</label>
       <input type="password" id="senha" name="senha" required>
 
-      <button type="submit">Cadastrar</button>
+       <button type="submit" name="registrar">Cadastrar</button>
     </form>
 
     <?php if (!empty($error)): ?>

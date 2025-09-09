@@ -42,9 +42,15 @@ class ClienteController {
     }
 
     public function excluir() {
-        $id = (int)($_GET['id'] ?? 0);
-        $this->model->delete($id);
-        header("Location: index.php?page=clientes_listar");
+    $id = (int)($_GET['id'] ?? 0);
+
+    if ($this->model->temPedidos($id)) {
+        echo "⚠️ Não é possível excluir este cliente porque ele já possui pedidos.";
         exit;
     }
+
+    $this->model->delete($id);
+    header("Location: index.php?page=clientes_listar");
+    exit;
+}
 }
