@@ -1069,3 +1069,36 @@ body.login-page::after {
   transform: scale(1.2);
 }
 
+.btn-eu-quero {
+  text-decoration: none !important;
+}
+
+
+main.content {
+    flex: 1; 
+}
+
+body { 
+  display: flex; 
+  flex-direction: column; 
+  min-height: 100vh; 
+}
+
+.filter-section {
+  margin-bottom: 8px !important; 
+}
+.container {
+  margin-bottom: 15px !important; 
+}
+
+
+.btn.btn-eu-quero {
+  background-color: #fff !important;           
+  border: none !important;
+  padding: 10px 20px;
+  border-radius: 25px;
+  transition: none; 
+}
+
+
+

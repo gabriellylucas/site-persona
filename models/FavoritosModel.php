@@ -1,5 +1,4 @@
 <?php
-
 class FavoritosModel {
     private $pdo;
 
@@ -7,34 +6,35 @@ class FavoritosModel {
         $this->pdo = $pdo;
     }
 
-    public function getFavoritosByUsuario($usuario_id) {
-        $stmt = $this->pdo->prepare("
-            SELECT p.id, p.nome, p.preco
-            FROM favoritos f
-            JOIN produtos p ON f.produto_id = p.id
-            WHERE f.usuario_id = :usuario_id
-        ");
-
+    
+    public function getFavoritosByUsuario(int $usuario_id): array {
+        $sql = "SELECT produto_id FROM favoritos WHERE usuario_id = :usuario_id";
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute(['usuario_id' => $usuario_id]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN, 0) ?: [];
     }
 
-    public function adicionarFavorito($usuario_id, $produto_id) {
-        $stmt = $this->pdo->prepare("
-            INSERT INTO favoritos (usuario_id, produto_id) 
-            VALUES (:usuario_id, :produto_id)
-        ");
-        return $stmt->execute([
-            'usuario_id' => $usuario_id,
-            'produto_id' => $produto_id
-        ]);
+    
+    public function adicionarFavorito(int $usuario_id, int $produto_id): bool {
+        try {
+            $sql = "INSERT INTO favoritos (usuario_id, produto_id) VALUES (:usuario_id, :produto_id)";
+            $stmt = $this->pdo->prepare($sql);
+            return $stmt->execute([
+                'usuario_id' => $usuario_id,
+                'produto_id' => $produto_id
+            ]);
+        } catch (PDOException $e) {
+           
+            if ($e->getCode() == 23000) {
+                return true;
+            }
+            return false;
+        }
     }
 
-    public function removerFavorito($usuario_id, $produto_id) {
-        $stmt = $this->pdo->prepare("
-            DELETE FROM favoritos 
-            WHERE usuario_id = :usuario_id AND produto_id = :produto_id
-        ");
+    public function removerFavorito(int $usuario_id, int $produto_id): bool {
+        $sql = "DELETE FROM favoritos WHERE usuario_id = :usuario_id AND produto_id = :produto_id";
+        $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
             'usuario_id' => $usuario_id,
             'produto_id' => $produto_id
