@@ -1078,11 +1078,7 @@ main.content {
     flex: 1; 
 }
 
-body { 
-  display: flex; 
-  flex-direction: column; 
-  min-height: 100vh; 
-}
+
 
 .filter-section {
   margin-bottom: 8px !important; 
@@ -1099,6 +1095,4 @@ body {
   border-radius: 25px;
   transition: none; 
 }
-
-
 

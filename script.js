@@ -41,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (activeLink) setUnderlineToElement(activeLink);
   }
 
-
   document.querySelectorAll(".perma-hover").forEach(btn => btn.classList.add("hovered"));
 
   const cakes = [
@@ -91,12 +90,12 @@ document.addEventListener("DOMContentLoaded", function () {
     { id: 44, name: "Personalizado", img: "imagens/pers.PNG", ingredient: ["personalizado"], categoria: "bolos-personalizados" }
 ];
 
-
   const productList = document.getElementById("product-list");
   const filter = document.getElementById("filter");
   const numeroWhatsApp = "5544988563181";
-  const favoritos = typeof window.favoritos !== "undefined" ? window.favoritos : [];
- 
+  
+  const favoritos = typeof window.favoritos !== "undefined" ? window.favoritos.map(Number) : [];
+
   function renderCakes(categoryFilter = "todos", ingredientFilter = "todos") {
     productList.innerHTML = "";
 
@@ -112,10 +111,11 @@ document.addEventListener("DOMContentLoaded", function () {
     filteredCakes.forEach(cake => {
       const card = document.createElement("div");
       card.className = "col-6 col-md-3 mb-4";
+      const isFav = favoritos.includes(Number(cake.id));
       card.innerHTML = `
         <div class="card h-100 text-center position-relative">
           <button class="favorite-btn position-absolute top-0 end-0 m-2" data-produto-id="${cake.id}">
-            <i class="fa-regular fa-heart fs-3" style="color: pink;"></i>
+            <i class="fa-${isFav ? 'solid' : 'regular'} fa-heart fs-3" style="color: pink;"></i>
           </button>
           <div class="img-container">
             <img src="${cake.img}" alt="${cake.name}" class="card-img-top" />
@@ -128,11 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
           </div>
         </div>
       `;
-
-      const heartIcon = card.querySelector("i");
-      if (favoritos.includes(cake.id)) {
-        heartIcon.classList.replace("fa-regular", "fa-solid");
-      }
 
       card.querySelector(".btn-eu-quero").addEventListener("click", () => {
         let tipo = cake.categoria === "bolos" ? "bolo de " : "";
@@ -149,7 +144,6 @@ document.addEventListener("DOMContentLoaded", function () {
   if (filter) {
     filter.addEventListener("change", () => renderCakes("todos", filter.value));
   }
-
 
   ["bolos", "docinhos", "sobremesas", "bolos-personalizados"].forEach(cat => {
     const el = document.getElementById(`filtro-${cat}`);
@@ -170,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const isFavorito = heartIcon.classList.contains("fa-solid");
     const acao = isFavorito ? "remover" : "adicionar";
 
-    fetch("/site-persona/favoritos_ajax.php", { 
+    fetch("/site-persona/controllers/Favoritos_ajax.php", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `acao=${acao}&produto_id=${produtoId}`
@@ -195,3 +189,4 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 });
+
