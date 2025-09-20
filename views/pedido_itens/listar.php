@@ -1,37 +1,65 @@
 <?php include __DIR__ . '/../admin/navbar_admin.php'; ?>
 
-<h1>Itens do Pedido <?= $pedidoId ?></h1>
-<a href="index.php?page=pedido_itens_adicionar&pedido_id=<?= $pedidoId ?>">Adicionar Produto</a>
-<table border="1" cellpadding="5" cellspacing="0">
-    <tr>
-        <th>ID</th>
-        <th>Produto</th>
-        <th>Quantidade</th>
-        <th>Preço</th>
-        <th>Subtotal</th>
-        <th>Ações</th>
-    </tr>
-    <?php 
-    $total = 0;
-    foreach ($itens as $item): 
-        $subtotal = $item['quantidade'] * $item['preco'];
-        $total += $subtotal;
-    ?>
-        <tr>
-            <td><?= $item['id'] ?></td>
-            <td><?= htmlspecialchars($item['produto_nome']) ?></td>
-            <td><?= $item['quantidade'] ?></td>
-            <td><?= number_format($item['preco'], 2, ',', '.') ?></td>
-            <td><?= number_format($subtotal, 2, ',', '.') ?></td>
-            <td>
-                <a href="index.php?page=pedido_itens_remover&pedido_id=<?= $pedidoId ?>&item_id=<?= $item['id'] ?>" onclick="return confirm('Remover item?')">Remover</a>
-            </td>
-        </tr>
-    <?php endforeach; ?>
-    <tr>
-        <td colspan="4"><strong>Total</strong></td>
-        <td colspan="2"><strong><?= number_format($total, 2, ',', '.') ?></strong></td>
-    </tr>
-</table>
+<link rel="stylesheet" href="admin.css">
 
-<?php include __DIR__ . '/../admin/footer_admin.php'; ?>
+<div class="pedido-itens-container">
+    <div class="pedido-card">
+        <!-- Cabeçalho -->
+        <div class="pedido-header">
+            <div>
+                <span><strong>Pedido ID:</strong> <?= $pedidoId ?></span>
+                <span style="margin-left:20px;"><strong>Cliente:</strong> <?= htmlspecialchars($clienteNome ?? 'Não informado') ?></span>
+            </div>
+            <h2>Itens do Pedido</h2>
+            <a href="index.php?page=pedido_itens_adicionar&pedido_id=<?= $pedidoId ?>" class="btn-add">+ Adicionar Produto</a>
+        </div>
+
+        <!-- Tabela de Itens -->
+        <table class="pedido-table">
+            <thead>
+                <tr>
+                    <th>Imagem</th>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+                    <th>Subtotal</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                $total = 0;
+                foreach ($itens as $item): 
+                    $subtotal = $item['quantidade'] * $item['preco'];
+                    $total += $subtotal;
+                ?>
+                    <tr>
+                        <td>
+                            <?php if (!empty($item['imagem'])): ?>
+                                <img src="uploads/<?= htmlspecialchars($item['imagem']) ?>" alt="Imagem Produto" class="produto-thumb">
+                            <?php else: ?>
+                                <span>—</span>
+                            <?php endif; ?>
+                        </td>
+                        <td><?= htmlspecialchars($item['produto_nome']) ?></td>
+                        <td><?= $item['quantidade'] ?></td>
+                        <td>R$ <?= number_format($item['preco'], 2, ',', '.') ?></td>
+                        <td>R$ <?= number_format($subtotal, 2, ',', '.') ?></td>
+                        <td>
+                            <a href="index.php?page=pedido_itens_remover&pedido_id=<?= $pedidoId ?>&item_id=<?= $item['id'] ?>" class="btn-remove" onclick="return confirm('Remover item?')">Remover</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <!-- Resumo -->
+        <div class="pedido-resumo">
+            <p><strong>Subtotal:</strong> R$ <?= number_format($total, 2, ',', '.') ?></p>
+            <p><strong>Frete:</strong> R$ <?= number_format($frete ?? 0, 2, ',', '.') ?></p>
+            <p class="total"><strong>Total:</strong> R$ <?= number_format($total + ($frete ?? 0), 2, ',', '.') ?></p>
+        </div>
+    </div>
+</div>
+
+<?php include __DIR__ . '/../admin/footer_admin.php'; ?>                                                                                             

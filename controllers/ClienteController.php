@@ -8,26 +8,37 @@ class ClienteController {
         $this->model = new Cliente($pdo);
     }
 
+   
     public function listar() {
         $clientes = $this->model->getAll();
         include __DIR__ . '/../views/clientes/listar.php';
     }
 
+   
     public function cadastrar() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nome = $_POST['nome'] ?? '';
             $email = $_POST['email'] ?? '';
 
-            $this->model->create($nome, $email);
+           
+            $id = $this->model->createByAdmin($nome, $email);
+
             header("Location: index.php?page=clientes_listar");
             exit;
         }
+
         include __DIR__ . '/../views/clientes/cadastrar.php';
     }
 
+    
     public function editar() {
         $id = (int)($_GET['id'] ?? 0);
         $cliente = $this->model->getById($id);
+
+        if (!$cliente) {
+            echo "Cliente não encontrado!";
+            exit;
+        }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nome = $_POST['nome'] ?? '';
@@ -41,16 +52,17 @@ class ClienteController {
         include __DIR__ . '/../views/clientes/editar.php';
     }
 
+   
     public function excluir() {
-    $id = (int)($_GET['id'] ?? 0);
+        $id = (int)($_GET['id'] ?? 0);
 
-    if ($this->model->temPedidos($id)) {
-        echo "⚠️ Não é possível excluir este cliente porque ele já possui pedidos.";
+        if ($this->model->temPedidos($id)) {
+            echo "⚠️ Não é possível excluir este cliente porque ele já possui pedidos.";
+            exit;
+        }
+
+        $this->model->delete($id);
+        header("Location: index.php?page=clientes_listar");
         exit;
     }
-
-    $this->model->delete($id);
-    header("Location: index.php?page=clientes_listar");
-    exit;
-}
 }

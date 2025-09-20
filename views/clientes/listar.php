@@ -1,55 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Clientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="page-clientes">
+
 <?php include __DIR__ . '/../admin/navbar_admin.php'; ?>
 
-<div class="container mt-4">
+<div class="main-container">
+    <h2 class="section-title"> Gestão de Clientes </h2>
+    <div class="header-controls">
+        <div class="search-box">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Procurar clientes..."> 
+        </div>
+        <a href="index.php?page=clientes_cadastrar" class="add-new-client">
+            Adicionar Novo Cliente <i class="fas fa-plus"></i>
+        </a>
+    </div>
 
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h1 class="h3">Clientes</h1>
-    <a href="index.php?page=clientes_cadastrar" class="btn btn-success">
-      + Novo Cliente
-    </a>
-  </div>
-
- 
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover align-middle shadow-sm">
-      <thead class="table-dark">
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Nome</th>
-          <th scope="col">Email</th>
-          <th scope="col">Ações</th>
-        </tr>
-      </thead>
-      <tbody>
+    <div class="clients-grid">
         <?php if (!empty($clientes)): ?>
-          <?php foreach ($clientes as $c): ?>
-            <tr>
-              <td><?= $c['id'] ?></td>
-              <td><?= htmlspecialchars($c['nome']) ?></td>
-              <td><?= htmlspecialchars($c['email']) ?></td>
-              <td>
-                <a href="index.php?page=clientes_editar&id=<?= $c['id'] ?>" 
-                   class="btn btn-sm btn-primary">
-                   Editar
-                </a>
-                <a href="index.php?page=clientes_excluir&id=<?= $c['id'] ?>" 
-                   class="btn btn-sm btn-danger"
-                   onclick="return confirm('Tem certeza que deseja excluir este cliente?')">
-                   Excluir
-                </a>
-              </td>
-            </tr>
-          <?php endforeach; ?>
+            <?php foreach ($clientes as $c): ?>
+                <div class="client-card">
+                    <div class="card-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="card-content">
+                        <p class="client-name">
+                            <?= htmlspecialchars($c['nome']) ?>
+                        </p>
+                        <p class="client-info">
+                            <?= htmlspecialchars($c['email']) ?>
+                        </p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         <?php else: ?>
-          <tr>
-            <td colspan="4" class="text-center text-muted">
-              Nenhum cliente cadastrado
-            </td>
-          </tr>
+            <div class="no-clients">
+                Nenhum cliente cadastrado.
+            </div>
         <?php endif; ?>
-      </tbody>
-    </table>
-  </div>
+    </div>
 </div>
 
 <?php include __DIR__ . '/../admin/footer_admin.php'; ?>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('search-input');
+        const clientsGrid = document.querySelector('.clients-grid');
+
+        searchInput.addEventListener('keyup', function() {
+            const searchTerm = searchInput.value;
+
+            fetch(`index.php?page=clientes&search=${searchTerm}`)
+                .then(response => response.text())
+                .then(data => {
+                   
+                    clientsGrid.innerHTML = data;
+                })
+                .catch(error => console.error('Erro ao buscar clientes:', error));
+        });
+    });
+</script>
+
+</body>
+</html>

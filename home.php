@@ -37,7 +37,8 @@ if ($usuario_id) {
     <img src="imagens/bolo4.png" alt="Banner" class="img-fluid w-100">
     <div class="banner-texto">
       <h1>Bem-vindo à Lia: Bolos e Cia</h1>
-      <p>Delícias feitas com carinho para todos os momentos especiais.</p>
+      <p>Delícias feitas com carinho para todos os momentos especiais.
+         Encomende bolos personalizados, sobremesas irresistíveis e muito mais!</p>
       <a href="#cardapio" class="btn btn-primary">Faça seu pedido</a>
     </div>
   </div>
