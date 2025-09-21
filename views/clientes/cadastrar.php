@@ -12,7 +12,7 @@
                 <form method="post">
                     <div class="form-group">
                         <label for="nome">Nome</label>
-                        <input type="text" id="nome" name="nome" placeholder="Digite o nome do cliente" required>
+                        <input type="text" id="nome" name="nome" placeholder="Digite o nome completo do cliente" required>
                     </div>
 
                     <div class="form-group">

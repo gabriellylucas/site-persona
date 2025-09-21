@@ -8,20 +8,48 @@ class ClienteController {
         $this->model = new Cliente($pdo);
     }
 
-   
+    
     public function listar() {
-        $clientes = $this->model->getAll();
+        $search = $_GET['search'] ?? '';
+
+        if ($search !== '') {
+           
+            $clientes = $this->model->search($search);
+        } else {
+           
+            $clientes = $this->model->getAll();
+        }
+
+       
+        if (!empty($search) && isset($_GET['ajax'])) {
+            if (!empty($clientes)) {
+                foreach ($clientes as $c) {
+                    echo '<div class="client-card">
+                            <div class="card-icon"><i class="fas fa-user-circle"></i></div>
+                            <div class="card-content">
+                                <p class="client-name">'.htmlspecialchars($c['nome']).'</p>
+                                <p class="client-info">'.htmlspecialchars($c['email']).'</p>
+                            </div>
+                          </div>';
+                }
+            } else {
+                echo '<div class="no-clients">Nenhum cliente encontrado.</div>';
+            }
+            exit;
+        }
+
+        
         include __DIR__ . '/../views/clientes/listar.php';
     }
 
-   
+    
     public function cadastrar() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nome = $_POST['nome'] ?? '';
             $email = $_POST['email'] ?? '';
 
            
-            $id = $this->model->createByAdmin($nome, $email);
+            $this->model->createByAdmin($nome, $email);
 
             header("Location: index.php?page=clientes_listar");
             exit;
@@ -52,7 +80,7 @@ class ClienteController {
         include __DIR__ . '/../views/clientes/editar.php';
     }
 
-   
+
     public function excluir() {
         $id = (int)($_GET['id'] ?? 0);
 

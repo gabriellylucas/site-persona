@@ -4,7 +4,7 @@
 
 <div class="pedido-itens-container">
     <div class="pedido-card">
-        <!-- Cabeçalho -->
+       
         <div class="pedido-header">
             <div>
                 <span><strong>Pedido ID:</strong> <?= $pedidoId ?></span>
@@ -14,7 +14,7 @@
             <a href="index.php?page=pedido_itens_adicionar&pedido_id=<?= $pedidoId ?>" class="btn-add">+ Adicionar Produto</a>
         </div>
 
-        <!-- Tabela de Itens -->
+       
         <table class="pedido-table">
             <thead>
                 <tr>
@@ -53,7 +53,7 @@
             </tbody>
         </table>
 
-        <!-- Resumo -->
+       
         <div class="pedido-resumo">
             <p><strong>Subtotal:</strong> R$ <?= number_format($total, 2, ',', '.') ?></p>
             <p><strong>Frete:</strong> R$ <?= number_format($frete ?? 0, 2, ',', '.') ?></p>

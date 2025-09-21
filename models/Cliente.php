@@ -11,20 +11,20 @@ class Cliente {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    
     public function getById(int $id): ?array {
         $stmt = $this->pdo->prepare("SELECT * FROM clientes WHERE id = :id");
         $stmt->execute([':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
+    
     public function getByEmail(string $email): ?array {
         $stmt = $this->pdo->prepare("SELECT * FROM clientes WHERE email = :email");
         $stmt->execute([':email' => $email]);
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
-    
+   
     public function create(string $nome, string $email, string $senha): int {
         $hash = password_hash($senha, PASSWORD_DEFAULT);
         $stmt = $this->pdo->prepare(
@@ -38,9 +38,8 @@ class Cliente {
         return (int)$this->pdo->lastInsertId();
     }
 
-    
     public function createByAdmin(string $nome, string $email): int {
-        $senha = bin2hex(random_bytes(4)); 
+        $senha = bin2hex(random_bytes(4)); // senha aleatória
         $hash = password_hash($senha, PASSWORD_DEFAULT);
         $stmt = $this->pdo->prepare(
             "INSERT INTO clientes (nome, email, senha) VALUES (:nome, :email, :senha)"
@@ -65,7 +64,6 @@ class Cliente {
         ]);
     }
 
-   
     public function delete(int $id): bool {
         $stmt = $this->pdo->prepare("DELETE FROM clientes WHERE id = :id");
         return $stmt->execute([':id' => $id]);
@@ -78,5 +76,15 @@ class Cliente {
         );
         $stmt->execute([':id' => $clienteId]);
         return $stmt->fetchColumn() > 0;
+    }
+
+    public function search(string $term): array {
+        $stmt = $this->pdo->prepare(
+            "SELECT * FROM clientes WHERE nome LIKE :like OR email LIKE :like ORDER BY id DESC"
+        );
+        $like = "%$term%";
+        $stmt->bindParam(':like', $like, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
