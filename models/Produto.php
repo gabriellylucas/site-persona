@@ -11,35 +11,48 @@ class Produto {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getAtivos(): array {
+        $stmt = $this->pdo->query("SELECT * FROM produtos WHERE status = 'ativo' ORDER BY id DESC");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getById(int $id): ?array {
         $stmt = $this->pdo->prepare("SELECT * FROM produtos WHERE id = :id");
         $stmt->execute([':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
-    public function create(string $nome, string $descricao, float $preco): int {
+    public function getNomeById(int $id): ?string {
+        $stmt = $this->pdo->prepare("SELECT nome FROM produtos WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetchColumn() ?: null;
+    }
+
+    public function create(string $nome, string $descricao, float $preco, string $status = 'ativo'): int {
         $stmt = $this->pdo->prepare(
-            "INSERT INTO produtos (nome, descricao, preco) 
-             VALUES (:nome, :descricao, :preco)"
+            "INSERT INTO produtos (nome, descricao, preco, status) 
+             VALUES (:nome, :descricao, :preco, :status)"
         );
         $stmt->execute([
             ':nome' => $nome,
             ':descricao' => $descricao,
-            ':preco' => $preco
+            ':preco' => $preco,
+            ':status' => $status
         ]);
         return (int)$this->pdo->lastInsertId();
     }
 
-    public function update(int $id, string $nome, string $descricao, float $preco): bool {
+    public function update(int $id, string $nome, string $descricao, float $preco, string $status = 'ativo'): bool {
         $stmt = $this->pdo->prepare(
             "UPDATE produtos 
-             SET nome = :nome, descricao = :descricao, preco = :preco 
+             SET nome = :nome, descricao = :descricao, preco = :preco, status = :status
              WHERE id = :id"
         );
         return $stmt->execute([
             ':nome' => $nome,
             ':descricao' => $descricao,
             ':preco' => $preco,
+            ':status' => $status,
             ':id' => $id
         ]);
     }

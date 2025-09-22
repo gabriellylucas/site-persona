@@ -20,8 +20,18 @@ class PedidoController {
     }
 
     public function cadastrar() {
+       
         $clientes = $this->clienteModel->getAll();
-        $produtos = $this->produtoModel->getAllAtivos();
+
+      
+        $todosProdutos = $this->produtoModel->getAll();
+
+        
+        $produtos = array_filter($todosProdutos, function($p) {
+            return isset($p['status']) && strtolower($p['status']) === 'ativo';
+        });
+
+        $erro = '';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $clienteId = (int)($_POST['cliente_id'] ?? 0);
