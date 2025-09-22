@@ -334,7 +334,6 @@ body {
 
 
 
-
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #fff7f7;
@@ -669,7 +668,7 @@ body {
     color: var(--secondary-color);
 }
 
-/* Conteúdo Principal */
+
 .produtos-content {
     flex-grow: 1;
     padding: 40px;
@@ -1052,6 +1051,74 @@ body {
 .action-buttons a {
     text-decoration: none;
     font-size: 18px; 
+}
+ 
+
+
+.dashboard-grid {
+    display: grid;
+    grid-template-areas: 
+        "clientes pedidos acoes"
+        "produtos vendas acoes";
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+
+.card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.card.actions {
+    grid-area: acoes;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: stretch;
+    padding: 20px;
+}
+
+
+.card.actions .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0;
+    margin-bottom: 15px; 
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+
+.card.actions .btn.add {
+    background: #f8d7da;
+    color: #842029;
+}
+
+
+.card.actions .btn.sair {
+    background: #a83240;
+    color: #fff;
+}
+
+.card.actions .btn.add:hover {
+    background: #fce4ec;
+}
+
+.card.actions .btn.sair:hover {
+    background: #7a222e;
 }
 
 
