@@ -148,13 +148,6 @@ body {
 }
 
 
-body {
-  margin: 0;
-  font-family: 'Poppins', Arial, sans-serif;
-  background-color: #fff7f7;
-  color: #333;
-}
-
 
 .admin-navbar {
   background-color: #f4c2c2;
@@ -341,11 +334,6 @@ body {
 
 
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 body {
     font-family: 'Poppins', sans-serif;
@@ -1043,3 +1031,5 @@ body {
     background-color: #e89aaf;   
     color: #fff;
 }
+
+

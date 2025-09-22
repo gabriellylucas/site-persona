@@ -2,8 +2,8 @@
 session_start();
 header('Content-Type: application/json');
 
-require_once __DIR__ . '/controllers/FavoritosController.php';
-require_once __DIR__ . '/conexao.php';
+require_once __DIR__ . '/FavoritosController.php';
+require_once __DIR__ . '/../conexao.php';
 
 if (!isset($_SESSION['usuario_id'])) {
     echo json_encode(['success' => false, 'message' => 'Usuário não logado']);
