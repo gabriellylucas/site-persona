@@ -127,12 +127,13 @@ if ($usuario_id) {
                     $ingredientesFinal = implode(',', $ingredientesArray);
                 ?>
                     <div class="col-6 col-md-3 mb-4 produto-item"
-                         data-categoria="<?= htmlspecialchars($categoriaLower) ?>"
-                         data-ingredientes="<?= htmlspecialchars($ingredientesFinal) ?>">
+     data-produto-id="<?= $produto['id'] ?>"
+     data-categoria="<?= htmlspecialchars($categoriaLower) ?>"
+     data-ingredientes="<?= htmlspecialchars($ingredientesFinal) ?>">
                         <div class="card h-100 text-center position-relative">
                             <?php $isFav = in_array($produto['id'], $favoritos ?? []); ?>
                             <button class="favorite-btn position-absolute top-0 end-0 m-2" data-produto-id="<?= $produto['id'] ?>">
-                                <i class="fa-<?= $isFav ? 'solid' : 'regular' ?> fa-heart fs-3" style="color: pink;"></i>
+                               <i class="fa-regular fa-heart fs-3" style="color: pink;"></i>
                             </button>
                             <div class="img-container">
                                 <img src="<?= htmlspecialchars($produto['imagem_url']) ?>"

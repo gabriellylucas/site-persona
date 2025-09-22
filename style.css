@@ -117,8 +117,8 @@
     background-color: #FADADD;
     padding: 5px;
     border-radius: 20px;
-    margin-top: 20px; 
-    margin-bottom: 12px; 
+    margin-top: 0px; 
+    margin-bottom: 4px; 
 }
 
 .filter-section .form-select {
@@ -204,10 +204,10 @@ body {
 
 .categorias-section {
     background-color: #fff7f3;
-    padding: 20px 20px; 
+    padding: 20px 20px;
     border-radius: 12px;
-    margin-bottom: 0; 
-}
+    margin-bottom: -30px; 
+} 
 
 .categoria-card {
   display: flex;

@@ -1,4 +1,3 @@
-
 <?php
 class Pedidos {
     private PDO $pdo;
@@ -7,29 +6,36 @@ class Pedidos {
         $this->pdo = $pdo;
     }
 
+   
     public function getAll(): array {
-        $sql = "SELECT p.*, c.nome as cliente_nome 
-                FROM pedidos p 
-                LEFT JOIN clientes c ON c.id = p.cliente_id 
-                ORDER BY p.id DESC";
-        $stmt = $this->pdo->query($sql);
+        $stmt = $this->pdo->query("
+            SELECT pedidos.id, pedidos.cliente_id, pedidos.produto_nome, pedidos.data_pedido, pedidos.status,
+                   clientes.nome AS cliente_nome
+            FROM pedidos
+            LEFT JOIN clientes ON clientes.id = pedidos.cliente_id
+            ORDER BY pedidos.data_pedido DESC
+        ");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getById(int $id): ?array {
-        $stmt = $this->pdo->prepare("SELECT * FROM pedidos WHERE id = :id");
-        $stmt->execute([':id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+    
+    public function create(int $clienteId, string $produtoNome): void {
+        $stmt = $this->pdo->prepare("
+            INSERT INTO pedidos (cliente_id, produto_nome, data_pedido, status)
+            VALUES (?, ?, NOW(), 'pendente')
+        ");
+        $stmt->execute([$clienteId, $produtoNome]);
     }
 
-    public function create(int $clienteId, float $total): int {
-        $stmt = $this->pdo->prepare("INSERT INTO pedidos (cliente_id, total) VALUES (:cliente_id, :total)");
-        $stmt->execute([':cliente_id' => $clienteId, ':total' => $total]);
-        return (int)$this->pdo->lastInsertId();
+  
+    public function delete(int $id): void {
+        $stmt = $this->pdo->prepare("DELETE FROM pedidos WHERE id = ?");
+        $stmt->execute([$id]);
     }
 
-    public function delete(int $id): bool {
-        $stmt = $this->pdo->prepare("DELETE FROM pedidos WHERE id = :id");
-        return $stmt->execute([':id' => $id]);
+    
+    public function updateStatus(int $id, string $status): void {
+        $stmt = $this->pdo->prepare("UPDATE pedidos SET status = ? WHERE id = ?");
+        $stmt->execute([$status, $id]);
     }
 }

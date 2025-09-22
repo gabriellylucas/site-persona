@@ -1,22 +1,30 @@
-<?php include __DIR__ . '/../admin/navbar_admin.php'; ?>
+<?php 
+include __DIR__ . '/../admin/navbar_admin.php'; 
+include 'conexao.php'; 
+
+
+$stmt = $pdo->query("
+    SELECT pedidos.id, pedidos.cliente_id, pedidos.produto_nome, pedidos.data_pedido, pedidos.status,
+           clientes.nome AS cliente_nome
+    FROM pedidos
+    LEFT JOIN clientes ON clientes.id = pedidos.cliente_id
+    ORDER BY pedidos.data_pedido DESC
+");
+$pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 
 <link rel="stylesheet" href="admin.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <div class="page-pedidos">
   <div class="main-container">
     <div class="card">
       <div class="card-header">
-        <h2>Orders</h2>
+        <h2>Pedidos</h2>
         <div class="search-box">
           <input type="text" placeholder="Pesquisar...">
           <a class="btn-new" href="index.php?page=pedidos_cadastrar">Novo Pedido</a>
         </div>
-      </div>
-
-      <div class="summary">
-        <h3>Summary</h3>
-        <div class="big-number"><?= count($pedidos) ?></div>
-        <p>Total Orders</p>
       </div>
 
       <table class="orders-table">
@@ -24,18 +32,26 @@
           <tr>
             <th>ID</th>
             <th>Cliente</th>
-            <th>Total</th>
+            <th>Produto</th>
+            <th>Data</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
           <?php foreach ($pedidos as $p): ?>
-            <tr>
-              <td><span class="highlight"><?= str_pad($p['id'], 3, "0", STR_PAD_LEFT) ?></span></td>
+            <tr id="pedido-<?= $p['id'] ?>">
+              <td><?= str_pad($p['id'], 3, "0", STR_PAD_LEFT) ?></td>
               <td><?= htmlspecialchars($p['cliente_nome'] ?? 'N/A') ?></td>
-              <td>R$ <?= number_format($p['total'], 2, ',', '.') ?></td>
               <td>
-                <a class="btn-delete" href="index.php?page=pedidos_excluir&id=<?= $p['id'] ?>" onclick="return confirm('Excluir?')">Excluir</a>
+                <?= htmlspecialchars($p['produto_nome'] ?? '-') ?>
+              </td>
+              <td><?= date('d/m/Y H:i', strtotime($p['data_pedido'])) ?></td>
+              <td class="text-center actions">
+                <div class="action-buttons">
+                  <a href="index.php?page=pedidos_excluir&id=<?= $p['id'] ?>" title="Excluir">
+                      <i class="fa-solid fa-xmark" style="color:red;"></i>
+                  </a>
+                </div>
               </td>
             </tr>
           <?php endforeach; ?>
