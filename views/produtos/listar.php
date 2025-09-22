@@ -20,7 +20,7 @@
             <i class="fas fa-search position-absolute" style="top: 50%; left: 10px; transform: translateY(-50%);"></i>
             <input type="text" id="search-input" class="form-control ps-4" placeholder="Procurar produtos...">
         </div>
-       <a href="index.php?page=produtos_cadastrar" class="btn btn-add-product">
+      <a href="teste_cadastro_produto.php" class="btn btn-add-product">
     <i class="fas fa-plus me-2"></i>Adicionar Novo Produto
 </a>
     </div>

@@ -1,5 +1,39 @@
 <?php
+include __DIR__ . '/conexao.php'; // Conexão com o banco
 session_start();
+
+$mensagem = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $nome = $_POST['nome'] ?? '';
+    $preco = (float)($_POST['preco'] ?? 0);
+
+    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+        $arquivoTmp = $_FILES['imagem']['tmp_name'];
+        $nomeArquivo = time() . '_' . basename($_FILES['imagem']['name']);
+        $pastaDestino = __DIR__ . '/imagens/';
+
+        if (!is_dir($pastaDestino)) {
+            mkdir($pastaDestino, 0777, true);
+        }
+
+        $caminhoFinal = $pastaDestino . $nomeArquivo;
+
+        if (move_uploaded_file($arquivoTmp, $caminhoFinal)) {
+            $imagemUrl = 'imagens/' . $nomeArquivo;
+
+            $stmt = $pdo->prepare("INSERT INTO produtos (nome, preco, imagem_url, ativo) VALUES (?, ?, ?, 1)");
+            $stmt->execute([$nome, $preco, $imagemUrl]);
+
+            $mensagem = "Produto cadastrado com sucesso!";
+        } else {
+            $mensagem = "Erro ao mover a imagem.";
+        }
+    } else {
+        $mensagem = "Erro no upload da imagem.";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,19 +48,20 @@ session_start();
 </head>
 <body class="page-produtos">
 
-<?php include __DIR__ . '/../admin/navbar_admin.php'; ?>
+<?php include __DIR__ . '/views/admin/navbar_admin.php'; ?>
+
 
 <div class="main-container container py-4">
     <h2 class="section-title mb-4 text-center">Cadastrar Novo Produto</h2>
 
-    <?php if(isset($_GET['sucesso'])): ?>
-        <div class="alert alert-success text-center">Produto cadastrado com sucesso!</div>
+    <?php if ($mensagem): ?>
+        <div class="alert alert-success text-center"><?= htmlspecialchars($mensagem) ?></div>
     <?php endif; ?>
 
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card p-4">
-               <form method="post" action="index.php?page=produtos_cadastrar">
+               <form method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label class="form-label">Nome do Produto</label>
                         <input type="text" name="nome" class="form-control" required>
@@ -53,7 +88,9 @@ session_start();
     </div>
 </div>
 
-<?php include __DIR__ . '/../admin/footer_admin.php'; ?>
+
+<?php include __DIR__ . '/views/admin/footer_admin.php'; ?>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

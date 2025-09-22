@@ -5,7 +5,7 @@ session_start();
 $usuario_id = $_SESSION['usuario_id'] ?? 0;
 
 
-$stmt = $pdo->query("SELECT * FROM produtos WHERE ativo = 1");
+$stmt = $pdo->query("SELECT * FROM produtos WHERE ativo = 1 ORDER BY id DESC");
 $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
@@ -44,7 +44,7 @@ if ($usuario_id) {
         </div>
     </div>
 
-   
+ 
     <section id="cardapio" class="container categorias-section my-5">
         <h2 class="text-center mb-4 titulo-produtos">Minhas Delícias</h2>
         <div class="row g-4 categorias-flex-container text-center">
@@ -66,7 +66,7 @@ if ($usuario_id) {
         </div>
     </section>
 
-    
+
     <section class="container mb-5">
         <div class="filter-section text-center mb-4">
             <label for="filter" class="form-label">Ou escolha seu ingrediente favorito:</label>
@@ -102,63 +102,46 @@ if ($usuario_id) {
             </select>
         </div>
 
-      
-        <div class="row g-4" id="product-list">
-            <?php if (!empty($produtos)): ?>
-                <?php foreach ($produtos as $produto):
+       <div class="row g-4" id="product-list">
+    <?php if (!empty($produtos)): ?>
+        <?php foreach ($produtos as $produto): 
+            
+        ?>
+            <div class="col-6 col-md-3 mb-4 produto-item"
+                 data-produto-id="<?= $produto['id'] ?>"
+                 data-categoria="<?= htmlspecialchars($categoriaLower) ?>"
+                 data-ingredientes="<?= htmlspecialchars($ingredientesFinal) ?>">
+                <div class="card h-100 text-center position-relative">
+                    <?php $isFav = in_array($produto['id'], $favoritos ?? []); ?>
+                    <button class="favorite-btn position-absolute top-0 end-0 m-2" data-produto-id="<?= $produto['id'] ?>">
+                       <i class="<?= $isFav ? 'fa-solid' : 'fa-regular' ?> fa-heart fs-3" style="color: pink;"></i>
+                    </button>
                     
-                    $ingredientes = strtolower($produto['descricao']);
-                    $ingredientes = str_replace([';', '  '], [',', ' '], $ingredientes);
-                    $ingredientesArray = array_map('trim', explode(',', $ingredientes));
-
-                   
-                    $categoriaLower = strtolower($produto['categoria']);
-                    $prefixo = "produto"; 
-                    if ($categoriaLower === "bolos" || $categoriaLower === "bolos-personalizados") {
-                        $prefixo = "bolo";
-                    } elseif ($categoriaLower === "docinhos") {
-                        $prefixo = "docinho";
-                    } elseif ($categoriaLower === "sobremesas") {
-                        $prefixo = "sobremesa";
-                    }
-
-                    $mensagem = "Olá! Gostaria de encomendar o {$prefixo} de {$produto['nome']}, por favor.";
-
-                    $ingredientesFinal = implode(',', $ingredientesArray);
-                ?>
-                    <div class="col-6 col-md-3 mb-4 produto-item"
-     data-produto-id="<?= $produto['id'] ?>"
-     data-categoria="<?= htmlspecialchars($categoriaLower) ?>"
-     data-ingredientes="<?= htmlspecialchars($ingredientesFinal) ?>">
-                        <div class="card h-100 text-center position-relative">
-                            <?php $isFav = in_array($produto['id'], $favoritos ?? []); ?>
-                            <button class="favorite-btn position-absolute top-0 end-0 m-2" data-produto-id="<?= $produto['id'] ?>">
-                               <i class="fa-regular fa-heart fs-3" style="color: pink;"></i>
-                            </button>
-                            <div class="img-container">
-                                <img src="<?= htmlspecialchars($produto['imagem_url']) ?>"
-                                     alt="<?= htmlspecialchars($produto['nome']) ?>"
-                                     class="card-img-top" />
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title mt-2"><?= htmlspecialchars($produto['nome']) ?></h5>
-                                <div class="d-flex justify-content-center mt-2">
-                                    <a href="https://wa.me/5544988563181?text=<?= urlencode($mensagem) ?>"
-                                       target="_blank"
-                                       class="btn btn-success btn-eu-quero"
-                                       data-produto="<?= htmlspecialchars($produto['nome']) ?>"
-                                       data-categoria="<?= htmlspecialchars($categoriaLower) ?>">
-                                        Eu Quero
-                                    </a>
-                                </div>
-                            </div>
+                
+                  <img src="<?= !empty($produto['imagem_url']) ? htmlspecialchars($produto['imagem_url']) : 'imagens/placeholder.png'; ?>"
+     alt="<?= htmlspecialchars($produto['nome']) ?>"
+     class="card-img-top" style="height: 150px; object-fit: cover;" />
+                    
+              
+                    <div class="card-body">
+                        <h5 class="card-title mt-2"><?= htmlspecialchars($produto['nome']) ?></h5>
+                        <div class="d-flex justify-content-center mt-2">
+                            <a href="https://wa.me/5544988563181?text=<?= urlencode($mensagem) ?>"
+                               target="_blank"
+                               class="btn btn-success btn-eu-quero"
+                               data-produto="<?= htmlspecialchars($produto['nome']) ?>"
+                               data-categoria="<?= htmlspecialchars($categoriaLower) ?>">
+                                Eu Quero
+                            </a>
                         </div>
                     </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <div class="col-12 text-center"><p>Nenhum produto encontrado.</p></div>
-            <?php endif; ?>
-        </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <div class="col-12 text-center"><p>Nenhum produto encontrado.</p></div>
+    <?php endif; ?>
+</div>
     </section>
 
 </main>

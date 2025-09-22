@@ -28,19 +28,19 @@ class Produto {
         return $stmt->fetchColumn() ?: null;
     }
 
-    public function create(string $nome, string $descricao, float $preco, string $status = 'ativo'): int {
-        $stmt = $this->pdo->prepare(
-            "INSERT INTO produtos (nome, descricao, preco, status) 
-             VALUES (:nome, :descricao, :preco, :status)"
-        );
-        $stmt->execute([
-            ':nome' => $nome,
-            ':descricao' => $descricao,
-            ':preco' => $preco,
-            ':status' => $status
-        ]);
-        return (int)$this->pdo->lastInsertId();
-    }
+   public function create(string $nome, string $descricao, float $preco): int {
+    $stmt = $this->pdo->prepare(
+        "INSERT INTO produtos (nome, descricao, preco) 
+         VALUES (:nome, :descricao, :preco)"
+    );
+    $stmt->execute([
+        ':nome' => $nome,
+        ':descricao' => $descricao,
+        ':preco' => $preco
+    ]);
+    return (int)$this->pdo->lastInsertId();
+}
+
 
     public function update(int $id, string $nome, string $descricao, float $preco, string $status = 'ativo'): bool {
         $stmt = $this->pdo->prepare(

@@ -1,23 +1,51 @@
 <?php
+include __DIR__ . '/../../conexao.php';
 session_start();
-include __DIR__ . '/conexao.php'; // caminho para o banco
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nome = $_POST['nome'];
-    $preco = $_POST['preco'];
+    
+   
+    $nome = $_POST['nome'] ?? '';
+    $preco = $_POST['preco'] ?? 0;
 
-    if (isset($_SESSION['imagem_selecionada'])) {
-        $imagem = $_SESSION['imagem_selecionada'];
+    
+    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+        $arquivoTmp = $_FILES['imagem']['tmp_name'];
+        $nomeArquivo = time() . '_' . basename($_FILES['imagem']['name']); 
+        
+       
+        $pastaDestino = __DIR__ . '/../../imagens/';
+        if (!is_dir($pastaDestino)) {
+            mkdir($pastaDestino, 0777, true);
+        }
 
-        $stmt = $pdo->prepare("INSERT INTO produtos (nome, preco, imagem_url) VALUES (?, ?, ?)");
-        $stmt->execute([$nome, $preco, $imagem]);
+        $caminhoFinal = $pastaDestino . $nomeArquivo;
 
-        unset($_SESSION['imagem_selecionada']);
+        
+        if (move_uploaded_file($arquivoTmp, $caminhoFinal)) {
+            $imagemUrl = 'imagens/' . $nomeArquivo; 
 
-        header("Location: cadastrar.php?sucesso=1");
-        exit;
+           
+            $stmt = $pdo->prepare("INSERT INTO produtos (nome, preco, imagem_url, ativo) VALUES (?, ?, ?, 1)");
+            $stmt->execute([$nome, $preco, $imagemUrl]);
+
+           
+            header("Location: cadastrar.php?sucesso=1");
+            exit;
+
+        } else {
+            echo "Erro ao mover a imagem para a pasta.";
+            exit;
+        }
+
     } else {
-        echo "Erro: Nenhuma imagem enviada. Volte e envie a imagem antes de cadastrar.";
+        echo "Nenhuma imagem selecionada ou ocorreu um erro no upload.";
+        exit;
     }
+
+} else {
+    echo "Acesso inválido.";
+    exit;
 }
 ?>

@@ -152,7 +152,8 @@ for ($i = 5; $i >= 0; $i--) {
 
         <div class="card actions">
     <a class="btn add" href="index.php?page=clientes_cadastrar"><i class="fa fa-user-plus"></i> Adicionar Novo Cliente</a>
-    <a class="btn add" href="index.php?page=produtos_cadastrar"><i class="fa fa-box"></i> Adicionar Produto</a>
+  <a class="btn add" href="teste_cadastro_produto.php">
+    <i class="fa fa-box"></i> Adicionar Produto</a>
     <a class="btn add" href="index.php?page=pedidos_cadastrar"><i class="fa fa-cart-plus"></i> Adicionar Pedidos</a>
    <a class="btn sair" href="index.php?page=home"><i class="fa fa-sign-out-alt"></i> Sair</a>
 </div>
