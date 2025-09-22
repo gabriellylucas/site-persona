@@ -10,7 +10,7 @@
     <h2>Criar Conta</h2>
 
     <form action="index.php?page=registrar" method="post">
-      <label for="nome">Nome:</label>
+      <label for="nome">Nome Completo:</label>
       <input type="text" id="nome" name="nome" required>
 
       <label for="email">Email:</label>

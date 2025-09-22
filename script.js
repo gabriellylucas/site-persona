@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-
-    
+  
     const navLinks = document.querySelectorAll(".navbar-nav .nav-link:not(.pedido-btn)");
     const navContainer = document.querySelector(".navbar-nav");
 
@@ -41,17 +40,15 @@ document.addEventListener("DOMContentLoaded", function () {
         if (activeLink) setUnderlineToElement(activeLink);
     }
 
-   
+    
     document.querySelectorAll(".perma-hover").forEach(btn => btn.classList.add("hovered"));
 
-
-   
+    
     if (document.body.classList.contains("page-produtos")) {
         const productList = document.getElementById("product-list");
         const filter = document.getElementById("filter");
         const numeroWhatsApp = "5544988563181";
         const productCards = document.querySelectorAll('.produto-item');
-
         const favoritos = window.favoritos || [];
 
        
@@ -60,22 +57,25 @@ document.addEventListener("DOMContentLoaded", function () {
             const noProductMessage = document.getElementById('no-product-message');
             if (noProductMessage) noProductMessage.remove();
 
+            const ingredientFilterLower = ingredientFilter.toLowerCase().trim();
+
             productCards.forEach(card => {
                 const categoria = (card.getAttribute('data-categoria') || "").toLowerCase();
-                const ingredientes = (card.getAttribute('data-ingredientes') || "").toLowerCase();
+                const nomeProduto = (card.getAttribute('data-nome') || "").toLowerCase();
 
                 const showByCategory = categoryFilter === "todos" || categoria === categoryFilter.toLowerCase();
-                const showByIngredient = ingredientFilter === "todos" || ingredientes.includes(ingredientFilter.toLowerCase());
+                const showByIngredient = ingredientFilterLower === "todos" || nomeProduto.includes(ingredientFilterLower);
 
+                card.style.display = (showByCategory && showByIngredient) ? 'block' : 'none';
+                if (showByCategory && showByIngredient) hasVisibleProducts = true;
+
+            
                 const heart = card.querySelector(".favorite-btn i");
                 const produtoId = Number(card.getAttribute("data-produto-id"));
                 if (heart) {
                     heart.classList.toggle("fa-solid", favoritos.includes(produtoId));
                     heart.classList.toggle("fa-regular", !favoritos.includes(produtoId));
                 }
-
-                card.style.display = (showByCategory && showByIngredient) ? 'block' : 'none';
-                if (showByCategory && showByIngredient) hasVisibleProducts = true;
             });
 
             if (!hasVisibleProducts) {
@@ -87,25 +87,26 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
+       
         if (filter) {
             filter.addEventListener("change", () => renderProducts("todos", filter.value));
         }
 
+      
         ["bolos", "docinhos", "sobremesas", "bolos-personalizados"].forEach(cat => {
             const el = document.getElementById(`filtro-${cat}`);
             if (el) el.addEventListener("click", () => {
-                renderProducts(cat, "todos");
+                renderProducts(cat, filter ? filter.value : "todos");
                 if (filter) filter.value = "todos";
             });
         });
 
+        
         renderProducts("todos", "todos");
 
-
-       
+      
         document.body.addEventListener("click", function (e) {
-
-        
+          
             const button = e.target.closest(".favorite-btn");
             if (button) {
                 e.preventDefault();
@@ -150,19 +151,16 @@ document.addEventListener("DOMContentLoaded", function () {
             const btnEuQuero = e.target.closest(".btn-eu-quero");
             if (btnEuQuero) {
                 e.preventDefault();
-
                 const card = btnEuQuero.closest(".produto-item");
                 const produtoNome = card.querySelector(".card-title").innerText;
                 const categoria = (card.getAttribute("data-categoria") || "").toLowerCase();
 
-               
                 let mensagem = `Olá! Gostaria de encomendar `;
                 if (categoria.includes("bolo")) mensagem += `o bolo de ${produtoNome}, por favor.`;
                 else if (categoria.includes("docinho")) mensagem += `os docinhos de ${produtoNome}, por favor.`;
                 else if (categoria.includes("sobremesa")) mensagem += `a sobremesa de ${produtoNome}, por favor.`;
                 else mensagem += `${produtoNome}, por favor.`;
 
-             
                 fetch("controllers/criar_pedido.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -174,7 +172,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         alert("Erro ao criar pedido!\nDetalhes: " + (data.error || "Sem detalhes"));
                         console.log(data);
                     } else {
-                       
                         window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`, "_blank");
                     }
                 })
@@ -183,9 +180,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     alert("Erro ao processar pedido.");
                 });
             }
-
         });
-
     }
-
 });
