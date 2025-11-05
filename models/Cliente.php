@@ -39,7 +39,7 @@ class Cliente {
     }
 
     public function createByAdmin(string $nome, string $email): int {
-        $senha = bin2hex(random_bytes(4)); // senha aleatória
+        $senha = bin2hex(random_bytes(4)); 
         $hash = password_hash($senha, PASSWORD_DEFAULT);
         $stmt = $this->pdo->prepare(
             "INSERT INTO clientes (nome, email, senha) VALUES (:nome, :email, :senha)"

@@ -57,9 +57,10 @@ if (!empty($favoritosIds)) {
             <div class="card h-100 text-center position-relative">
 
             
-              <button class="favorite-btn position-absolute top-0 end-0 m-2" data-produto-id="<?= $produto['id'] ?>">
-                <i class="fa-solid fa-heart fs-3" style="color: pink;"></i>
-              </button>
+<button class="favorite-btn position-absolute top-0 end-0 m-2" data-produto-id="<?= $produto['id'] ?>">
+    <i class="fa-solid fa-cart-shopping fs-3" style="color: pink;"></i>
+</button>
+
 
              
                <div class="img-container">

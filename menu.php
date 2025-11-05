@@ -18,7 +18,7 @@ if (session_status() === PHP_SESSION_NONE) {
       <a class="nav-link" href="/site-persona/sobre.php">Sobre</a>
         <?php if (isset($_SESSION['usuario_id'])): ?>
           <li class="nav-item">
-         <a class="nav-link pedido-btn" href="/site-persona/views/clientes/favoritos.php">❤️ Favoritos</a>
+         <a class="nav-link pedido-btn" href="/site-persona/views/clientes/favoritos.php"> 🛒 Carrinho</a>
           </li>
          <li class="nav-item">
      <a class="nav-link btn btn-danger text-white ms-2" href="/site-persona/logout.php" title="Sair">
