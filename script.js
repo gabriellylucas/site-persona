@@ -113,7 +113,7 @@ if (button) {
 
     // ---------------- Verifica se está logado ----------------
     if (!USUARIO_LOGADO) {
-        alert("Você precisa estar logado para favoritar um produto!");
+        alert("Você precisa estar logado para adicionar um produto ao carrinho!");
         return; // Interrompe o resto do código
     }
 

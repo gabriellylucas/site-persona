@@ -1122,3 +1122,118 @@ body {
 }
 
 
+.client-card {
+    position: relative;
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+    background: #fff; 
+    margin-bottom: 20px;
+}
+
+
+.client-card .card-actions {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+}
+
+
+.client-card .card-actions a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #6b6b6b;
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+
+.client-card .card-actions a:hover {
+    background: #ffeef0; 
+    color: #e83e6b;
+}
+
+
+.client-card .card-actions i {
+    font-size: 14px;
+}
+
+
+.card-icon { float: left; margin-right: 14px; font-size: 30px; color: #555; }
+.card-content { overflow: hidden; }
+.client-name { font-weight: 600; margin-bottom: 6px; }
+.client-info { color: #8a8a8a; font-size: 0.95rem; }
+
+.page-edit-client {
+    background: #fff6f7;
+    min-height: 100vh;
+    padding: 30px;
+}
+
+.edit-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 35px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.07);
+}
+
+.edit-container h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #d85c7a;
+    font-size: 26px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #e2b9c3;
+    outline: none;
+    font-size: 16px;
+}
+
+.form-group input:focus {
+    border-color: #d85c7a;
+}
+
+.btn-submit {
+    width: 100%;
+    background: #d85c7a;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 18px;
+    color: white;
+    transition: .3s;
+    margin-top: 8px;
+}
+
+.btn-submit:hover {
+    opacity: .85;
+    transform: scale(1.01);
+}
+
+
+

@@ -39,7 +39,7 @@ if (!empty($favoritosIds)) {
 
 <main class="content">
   <section class="container mb-5">
-    <h1 class="text-center mb-4">Meus Favoritos</h1>
+    <h1 class="text-center mb-4">Meu Carrinho</h1>
 
     <div class="row g-4" id="product-list">
       <?php if (!empty($produtosFavoritos)): ?>
@@ -87,7 +87,7 @@ if (!empty($favoritosIds)) {
         <?php endforeach; ?>
       <?php else: ?>
             <div class="col-12 text-center empty-state">
-            <p class="empty-state-message">Você ainda não adicionou nenhum produto aos favoritos.</p>
+            <p class="empty-state-message">Você ainda não adicionou nenhum produto ao carrinho.</p>
             <a href="../../index.php#cardapio" class="btn-call-to-action">Ver Produtos</a>
             </div>
           <?php endif; ?>

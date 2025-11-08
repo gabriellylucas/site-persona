@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -31,6 +29,18 @@
         <?php if (!empty($clientes)): ?>
             <?php foreach ($clientes as $c): ?>
                 <div class="client-card">
+                    <!-- AÇÕES: editar / excluir -->
+                    <div class="card-actions">
+                        <a href="index.php?page=clientes_editar&id=<?= urlencode($c['id']) ?>" title="Editar">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <a href="index.php?page=clientes_excluir&id=<?= urlencode($c['id']) ?>"
+                           title="Excluir"
+                           onclick="return confirm('Tem certeza que deseja excluir este cliente?');">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </div>
+
                     <div class="card-icon">
                         <i class="fas fa-user-circle"></i>
                     </div>
