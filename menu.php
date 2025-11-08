@@ -1,7 +1,8 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
-}?>
+}
+?>
 <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
   <div class="container">
     <a class="navbar-brand" href="index.php">
@@ -13,18 +14,20 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav align-items-center">
-       <a class="nav-link" href="/site-persona/index.php#inicio">Início</a>
-      <a class="nav-link" href="/site-persona/index.php#cardapio">Cardápio</a>
-      <a class="nav-link" href="/site-persona/sobre.php">Sobre</a>
+        <a class="nav-link" href="/site-persona/index.php#inicio">Início</a>
+        <a class="nav-link" href="/site-persona/index.php#cardapio">Cardápio</a>
+        <a class="nav-link" href="/site-persona/sobre.php">Sobre</a>
+
+        <li class="nav-item">
+          <a class="nav-link pedido-btn" href="/site-persona/views/clientes/favoritos.php"> 🛒 Carrinho</a>
+        </li>
+
         <?php if (isset($_SESSION['usuario_id'])): ?>
           <li class="nav-item">
-         <a class="nav-link pedido-btn" href="/site-persona/views/clientes/favoritos.php"> 🛒 Carrinho</a>
+            <a class="nav-link btn btn-danger text-white ms-2" href="/site-persona/logout.php" title="Sair">
+              <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
           </li>
-         <li class="nav-item">
-     <a class="nav-link btn btn-danger text-white ms-2" href="/site-persona/logout.php" title="Sair">
-    <i class="fa-solid fa-right-from-bracket"></i>
-  </a>
-</li>
         <?php else: ?>
           <li class="nav-item">
             <a class="nav-link pedido-btn" href="index.php?page=login">Login</a>
@@ -36,4 +39,3 @@ if (session_status() === PHP_SESSION_NONE) {
     </div>
   </div>
 </nav>
-

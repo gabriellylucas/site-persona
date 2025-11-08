@@ -109,12 +109,13 @@ if ($usuario_id) {
                  data-categoria="<?= htmlspecialchars($categoriaLower) ?>"
                  data-nome="<?= htmlspecialchars($nomeLower) ?>">
                 <div class="card h-100 text-center position-relative">
-                    <?php if ($usuario_id): ?>
-                        <?php $isFav = in_array($produto['id'], $favoritos ?? []); ?>
-                        <button class="favorite-btn position-absolute top-0 end-0 m-2" data-produto-id="<?= $produto['id'] ?>">
-                           <i class="<?= $isFav ? 'fa-solid' : 'fa-regular' ?> fa-heart fs-3" style="color: pink;"></i>
-                        </button>
-                    <?php endif; ?>
+                   <?php if ($usuario_id): ?>
+    <?php $isFav = in_array($produto['id'], $favoritos ?? []); ?>
+    <button class="favorite-btn position-absolute top-0 end-0 m-2" data-produto-id="<?= $produto['id'] ?>">
+       <i class="<?= $isFav ? 'fa-solid' : 'fa-solid' ?> fa-cart-shopping fs-3" style="color: pink;"></i>
+    </button>
+<?php endif; ?>
+
 
                     <img src="<?= !empty($produto['imagem_url']) ? htmlspecialchars($produto['imagem_url']) : 'imagens/placeholder.png'; ?>"
                          alt="<?= htmlspecialchars($produto['nome']) ?>"
