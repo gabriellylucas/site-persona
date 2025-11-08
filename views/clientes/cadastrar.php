@@ -30,6 +30,9 @@
     </div>
 </div>
 
+
+<?php include __DIR__ . '/../admin/footer_admin.php'; ?>
+
 <style>
 
 
@@ -125,13 +128,13 @@
     }
 
     .btn-primary {
-        background-color: #F28585;
+        background-color: #e89aaf;
         color: #fff;
         border: none;
     }
 
     .btn-primary:hover {
-        background-color: #f28585;
+        background-color: #e89aaf;
     }
 
     .btn-secondary {
@@ -152,4 +155,3 @@
     }
 </style>
 
-<?php include __DIR__ . '/../admin/footer_admin.php'; ?>
