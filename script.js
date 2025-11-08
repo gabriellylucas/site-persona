@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  
+
+    // ===================== Navbar =====================
     const navLinks = document.querySelectorAll(".navbar-nav .nav-link:not(.pedido-btn)");
     const navContainer = document.querySelector(".navbar-nav");
 
@@ -40,10 +41,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (activeLink) setUnderlineToElement(activeLink);
     }
 
-    
+    // ===================== Perma-hover =====================
     document.querySelectorAll(".perma-hover").forEach(btn => btn.classList.add("hovered"));
 
-    
+    // ===================== Página de Produtos =====================
     if (document.body.classList.contains("page-produtos")) {
         const productList = document.getElementById("product-list");
         const filter = document.getElementById("filter");
@@ -51,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const productCards = document.querySelectorAll('.produto-item');
         const favoritos = window.favoritos || [];
 
-       
         function renderProducts(categoryFilter = "todos", ingredientFilter = "todos") {
             let hasVisibleProducts = false;
             const noProductMessage = document.getElementById('no-product-message');
@@ -69,12 +69,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 card.style.display = (showByCategory && showByIngredient) ? 'block' : 'none';
                 if (showByCategory && showByIngredient) hasVisibleProducts = true;
 
-            
-                const heart = card.querySelector(".favorite-btn i");
-                const produtoId = Number(card.getAttribute("data-produto-id"));
-                if (heart) {
-                    heart.classList.toggle("fa-solid", favoritos.includes(produtoId));
-                    heart.classList.toggle("fa-regular", !favoritos.includes(produtoId));
+                // Atualiza o estado do coração
+                const heartBtn = card.querySelector(".favorite-btn");
+                if (heartBtn) {
+                    if (favoritos.includes(Number(card.getAttribute("data-produto-id")))) {
+                        heartBtn.classList.add("active");
+                    } else {
+                        heartBtn.classList.remove("active");
+                    }
                 }
             });
 
@@ -87,12 +89,10 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-       
         if (filter) {
             filter.addEventListener("change", () => renderProducts("todos", filter.value));
         }
 
-      
         ["bolos", "docinhos", "sobremesas", "bolos-personalizados"].forEach(cat => {
             const el = document.getElementById(`filtro-${cat}`);
             if (el) el.addEventListener("click", () => {
@@ -101,53 +101,58 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
 
-        
         renderProducts("todos", "todos");
 
-      
+        // ===================== Eventos de Clique =====================
         document.body.addEventListener("click", function (e) {
-          
-            const button = e.target.closest(".favorite-btn");
-            if (button) {
-                e.preventDefault();
-                const produtoId = Number(button.getAttribute("data-produto-id"));
-                const heartIcon = button.querySelector("i");
-                const isFavorito = heartIcon.classList.contains("fa-solid");
-                const acao = isFavorito ? "remover" : "adicionar";
 
-                heartIcon.classList.toggle("fa-solid", acao === "adicionar");
-                heartIcon.classList.toggle("fa-regular", acao === "remover");
+            // -------- Favoritos --------
+const button = e.target.closest(".favorite-btn");
+if (button) {
+    e.preventDefault();
 
-                if (acao === "adicionar" && !favoritos.includes(produtoId)) favoritos.push(produtoId);
-                else if (acao === "remover") {
-                    const index = favoritos.indexOf(produtoId);
-                    if (index > -1) favoritos.splice(index, 1);
-                }
+    // ---------------- Verifica se está logado ----------------
+    if (!USUARIO_LOGADO) {
+        alert("Você precisa estar logado para favoritar um produto!");
+        return; // Interrompe o resto do código
+    }
 
-                fetch("controllers/Favoritos_ajax.php", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: `acao=${acao}&produto_id=${produtoId}`
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (!data.success) {
-                        alert(data.message || "Erro ao atualizar favorito!");
-                        heartIcon.classList.toggle("fa-solid");
-                        heartIcon.classList.toggle("fa-regular");
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert("Ocorreu um erro ao atualizar os favoritos.");
-                    heartIcon.classList.toggle("fa-solid");
-                    heartIcon.classList.toggle("fa-regular");
-                });
+    const produtoId = Number(button.getAttribute("data-produto-id"));
 
-                return;
-            }
+    // Alterna o preenchimento rosa via classe
+    button.classList.toggle('active');
 
-         
+    // Atualiza o array de favoritos
+    if (!favoritos.includes(produtoId)) favoritos.push(produtoId);
+    else {
+        const index = favoritos.indexOf(produtoId);
+        if (index > -1) favoritos.splice(index, 1);
+    }
+
+    // Envia para o servidor
+    fetch("controllers/Favoritos_ajax.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `acao=${favoritos.includes(produtoId) ? "adicionar" : "remover"}&produto_id=${produtoId}`
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (!data.success) {
+            alert(data.message || "Erro ao atualizar favorito!");
+            button.classList.toggle('active'); // Reverte se der erro
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Ocorreu um erro ao atualizar os favoritos.");
+        button.classList.toggle('active'); // Reverte se der erro
+    });
+
+    return;
+}
+
+
+            // -------- Pedido via WhatsApp --------
             const btnEuQuero = e.target.closest(".btn-eu-quero");
             if (btnEuQuero) {
                 e.preventDefault();
@@ -166,19 +171,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
                     body: `produto_nome=${encodeURIComponent(produtoNome)}`
                 })
-                .then(res => res.json())
-                .then(data => {
-                    if (!data.success) {
-                        alert("Erro ao criar pedido!\nDetalhes: " + (data.error || "Sem detalhes"));
-                        console.log(data);
-                    } else {
-                        window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`, "_blank");
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert("Erro ao processar pedido.");
-                });
+                    .then(res => res.json())
+                    .then(data => {
+                        if (!data.success) {
+                            alert("Erro ao criar pedido!\nDetalhes: " + (data.error || "Sem detalhes"));
+                            console.log(data);
+                        } else {
+                            window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`, "_blank");
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert("Erro ao processar pedido.");
+                    });
             }
         });
     }
