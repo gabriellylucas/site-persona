@@ -9,8 +9,40 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins&display=swap" rel="stylesheet" />
+</head>
+<body>
 
-  <style>
+  <?php include 'menu.php'; ?> 
+
+  <main>
+    <div class="pagina-404">
+      <h1>404</h1>
+      <p>Ops! A página que você tentou acessar não foi encontrada.</p>
+      <a href="index.php">Voltar para a página inicial</a>
+    </div>
+  </main>
+
+  <?php include 'footer.php'; ?> 
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+   <style>
     .pagina-404 {
       display: flex;
       flex-direction: column;
@@ -67,23 +99,7 @@
         font-size: 1.1rem;
       }
     }
+
   </style>
-</head>
-<body>
-
-  <?php include 'menu.php'; ?> 
-
-  <main>
-    <div class="pagina-404">
-      <h1>404</h1>
-      <p>Ops! A página que você tentou acessar não foi encontrada.</p>
-      <a href="index.php">Voltar para a página inicial</a>
-    </div>
-  </main>
-
-  <?php include 'footer.php'; ?> 
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="script.js"></script>
 </body>
 </html>

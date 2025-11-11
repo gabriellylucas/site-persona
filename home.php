@@ -11,7 +11,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $favoritos = [];
 if ($usuario_id) {
-    $stmtFav = $pdo->prepare("SELECT produto_id FROM favoritos WHERE usuario_id = ?");
+    $stmtFav = $pdo->prepare("SELECT produto_id FROM carrinho WHERE usuario_id = ?");
     $stmtFav->execute([$usuario_id]);
     $favoritos = $stmtFav->fetchAll(PDO::FETCH_COLUMN);
 }
@@ -117,23 +117,30 @@ if ($usuario_id) {
   </svg>
 </button>
 
-
-
-
                     <img src="<?= !empty($produto['imagem_url']) ? htmlspecialchars($produto['imagem_url']) : 'imagens/placeholder.png'; ?>"
                          alt="<?= htmlspecialchars($produto['nome']) ?>"
                          class="card-img-top" style="height: 150px; object-fit: cover;" />
                     <div class="card-body">
-                        <h5 class="card-title mt-2"><?= htmlspecialchars($produto['nome']) ?></h5>
-                        <div class="d-flex justify-content-center mt-2">
-                            <a href="#"
-                               class="btn btn-success btn-eu-quero"
-                               data-produto="<?= htmlspecialchars($produto['nome']) ?>"
-                               data-categoria="<?= htmlspecialchars($categoriaLower) ?>">
-                               Eu Quero
-                            </a>
-                        </div>
+                      <h5 class="card-title mt-2"><?= htmlspecialchars($produto['nome']) ?></h5>
+
+<?php
+$unidade = ($categoriaLower === 'bolos') ? 'kg' : 'unidade';
+?>
+
+<p class="price text-muted mb-2">
+  R$ <?= number_format($produto['preco'], 2, ',', '.') ?> / <?= $unidade ?>
+</p>
+<div class="d-flex justify-content-center mt-2">
+  <a href="#"
+     class="btn btn-success btn-comprar-agora"
+     data-id="<?= $produto['id'] ?>"
+     data-produto="<?= htmlspecialchars($produto['nome']) ?>"
+     data-categoria="<?= htmlspecialchars($categoriaLower) ?>">
+     Comprar Agora
+  </a>
+</div>
                     </div>
+
                 </div>
             </div>
             <?php endforeach; ?>

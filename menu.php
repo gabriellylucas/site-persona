@@ -19,7 +19,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <a class="nav-link" href="/site-persona/sobre.php">Sobre</a>
 
         <li class="nav-item">
-          <a class="nav-link pedido-btn" href="/site-persona/views/clientes/favoritos.php"> 🛒 Carrinho</a>
+          <a class="nav-link pedido-btn" href="/site-persona/views/clientes/carrinho.php"> 🛒 Carrinho</a>
         </li>
 
         <?php if (isset($_SESSION['usuario_id'])): ?>

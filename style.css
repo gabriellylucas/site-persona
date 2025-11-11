@@ -377,7 +377,7 @@ body {
   top: -5px; 
 }
 
-.btn-eu-quero {
+.btn-comprar-agora {
   padding: 12px 25px;
   font-size: 1rem;
   border-radius: 25px;
@@ -388,11 +388,21 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-.btn-eu-quero:hover {
-  background-color: #fff; 
-  transform: scale(1.05); 
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+.btn-comprar-agora:hover {
+  background-color: #fff;
+  color: #e89aaf; 
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
+.btn-comprar-agora:focus,
+.btn-comprar-agora:active {
+  background-color: #e89aaf !important; 
+  color: #fff !important; 
+  border-color: #e89aaf !important; 
+  box-shadow: none !important; 
+}
+
 
 .footer {
   background-color: #FADADD;
