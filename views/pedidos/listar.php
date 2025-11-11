@@ -47,11 +47,15 @@ $pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
               </td>
               <td><?= date('d/m/Y H:i', strtotime($p['data_pedido'])) ?></td>
               <td class="text-center actions">
-                <div class="action-buttons">
-                  <a href="index.php?page=pedidos_excluir&id=<?= $p['id'] ?>" title="Excluir">
-                      <i class="fa-solid fa-xmark" style="color:red;"></i>
-                  </a>
-                </div>
+              <div class="action-buttons">
+    <a href="index.php?page=pedidos_editar&id=<?= $p['id'] ?>" title="Editar">
+       <i class="fa-solid fa-pen-to-square" style="color:pink;"></i>
+    </a>
+
+    <a href="index.php?page=pedidos_excluir&id=<?= $p['id'] ?>" title="Excluir">
+        <i class="fa-solid fa-xmark" style="color:red;"></i>
+    </a>
+</div>
               </td>
             </tr>
           <?php endforeach; ?>
