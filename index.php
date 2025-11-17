@@ -142,6 +142,10 @@ switch ($page) {
         include 'home.php';
         break;
 
+    case 'carrinho':
+    require 'views/clientes/carrinho.php';
+    break;
+
     default:
         include '404.php';
         break;

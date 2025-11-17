@@ -9,11 +9,11 @@ $stmt = $pdo->query("SELECT * FROM produtos WHERE ativo = 1 ORDER BY id DESC");
 $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
-$favoritos = [];
+$carrinho = [];
 if ($usuario_id) {
-    $stmtFav = $pdo->prepare("SELECT produto_id FROM carrinho WHERE usuario_id = ?");
-    $stmtFav->execute([$usuario_id]);
-    $favoritos = $stmtFav->fetchAll(PDO::FETCH_COLUMN);
+    $stmtCarrinho = $pdo->prepare("SELECT produto_id FROM carrinho WHERE usuario_id = ?");
+    $stmtCarrinho->execute([$usuario_id]);
+    $carrinho = $stmtCarrinho->fetchAll(PDO::FETCH_COLUMN);
 }
 ?>
 <!DOCTYPE html>
@@ -109,7 +109,7 @@ if ($usuario_id) {
                  data-categoria="<?= htmlspecialchars($categoriaLower) ?>"
                  data-nome="<?= htmlspecialchars($nomeLower) ?>">
                 <div class="card h-100 text-center position-relative">
-                  <?php $isFav = in_array($produto['id'], $favoritos ?? []); ?>
+                  <?php $isFav = in_array($produto['id'], $carrinho ?? []); ?>
 <button class="favorite-btn position-absolute top-0 end-0 m-2" data-produto-id="<?= $produto['id'] ?>">
   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="cart-icon">
     <path d="M7 4H2L6 12L5 14C5 15.1 5.9 16 7 16H19V14H7.42C7.28 14 7.17 13.89 7.17 13.75L7.2 13.7L8.1 12H17.55C18.3 12 18.96 11.59 19.3 10.97L22 6H5.21L4.27 4H7ZM10 20A2 2 0 1 0 10 16A2 2 0 0 0 10 20ZM18 20A2 2 0 1 0 18 16A2 2 0 0 0 18 20Z"
@@ -155,9 +155,9 @@ $unidade = ($categoriaLower === 'bolos') ? 'kg' : 'unidade';
 <?php include 'footer.php'; ?>
 
 <script>
-window.favoritos = <?= json_encode($favoritos) ?>;
+window.carrinho = <?= json_encode($carrinho) ?>;
 
-const USUARIO_LOGADO = <?= $usuario_id ? 'true' : 'false' ?>;
+window.USUARIO_LOGADO = <?= $usuario_id ? 'true' : 'false' ?>;
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="script.js"></script>

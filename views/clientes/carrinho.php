@@ -5,6 +5,9 @@ require_once __DIR__ . '/../../controllers/CarrinhoController.php';
 require_once __DIR__ . '/../../models/CarrinhoModel.php';
 require_once __DIR__ . '/../../conexao.php';
 
+$root = realpath(__DIR__ . '/../../..') . '/site-persona';
+
+
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: ../../index.php?page=login");
     exit;
@@ -35,7 +38,8 @@ if (!empty($carrinhoIds)) {
 </head>
 <body class="page-produtos">
 
-<?php include '../../menu.php'; ?>
+<?php include __DIR__ . '/../../menu.php'; ?>
+
 
 <main class="content">
   <section class="container mb-5">
@@ -51,7 +55,6 @@ if (!empty($carrinhoIds)) {
                data-ingredientes="<?= htmlspecialchars($produto['descricao']) ?>">
             <div class="card h-100 text-center position-relative">
 
-             
               <button class="favorite-btn position-absolute top-0 end-0 m-2" data-produto-id="<?= $produto['id'] ?>">
                 <i class="fa-solid fa-trash fs-4" style="color: red;"></i>
               </button>
@@ -68,8 +71,7 @@ if (!empty($carrinhoIds)) {
 
                 <div class="d-flex justify-content-center mt-2">
                   <a href="pagamento.php?id=<?= $produto['id'] ?>" 
-                     class="btn btn-success btn-comprar-agora"
-                     data-produto="<?= htmlspecialchars($produto['nome']) ?>">
+                     class="btn btn-success btn-comprar-agora">
                     Comprar Agora
                   </a>
                 </div>
@@ -87,39 +89,39 @@ if (!empty($carrinhoIds)) {
   </section>
 </main>
 
-<?php include '../../footer.php'; ?>
+<?php include __DIR__ . '/../../footer.php'; ?>
+
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
 
-  
-    document.querySelectorAll(".favorite-btn").forEach(button => {
-      const produtoId = Number(button.getAttribute("data-produto-id"));
+  document.querySelectorAll(".favorite-btn").forEach(button => {
+    const produtoId = Number(button.getAttribute("data-produto-id"));
 
-      button.addEventListener("click", function () {
-        if (confirm("Tem certeza que deseja remover este produto do carrinho?")) {
-          fetch("../../controllers/carrinho_ajax.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: `acao=remover&produto_id=${produtoId}`
-          })
-          .then(res => res.json())
-          .then(data => {
-            if (data.success) {
-              button.closest(".col-6, .col-md-3").remove();
-            } else {
-              alert(data.message || "Erro ao remover produto do carrinho!");
-            }
-          })
-          .catch(err => {
-            console.error(err);
-            alert("Erro ao processar remoção.");
-          });
-        }
-      });
+    button.addEventListener("click", function () {
+      if (confirm("Tem certeza que deseja remover este produto do carrinho?")) {
+        fetch("../../controllers/carrinho_ajax.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: `acao=remover&produto_id=${produtoId}`
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            button.closest(".col-6, .col-md-3").remove();
+          } else {
+            alert(data.message || "Erro ao remover produto do carrinho!");
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Erro ao processar remoção.");
+        });
+      }
     });
-
   });
+
+});
 </script>
 
 <script src="script.js"></script>
