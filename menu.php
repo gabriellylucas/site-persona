@@ -1,8 +1,18 @@
 <?php
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+
+$is_logged = isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] > 0;
 ?>
+
+<script>
+   
+    window.USUARIO_LOGADO = <?= $is_logged ? 'true' : 'false' ?>;
+</script>
+
 <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
   <div class="container">
     <a class="navbar-brand" href="index.php">
@@ -22,7 +32,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <a class="nav-link pedido-btn" href="index.php?page=carrinho"> 🛒 Carrinho</a>
         </li>
 
-        <?php if (isset($_SESSION['usuario_id'])): ?>
+        <?php if ($is_logged):  ?>
           <li class="nav-item">
             <a class="nav-link btn btn-danger text-white ms-2" href="/site-persona/logout.php" title="Sair">
               <i class="fa-solid fa-right-from-bracket"></i>

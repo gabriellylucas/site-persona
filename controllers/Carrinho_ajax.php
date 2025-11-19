@@ -3,9 +3,9 @@ session_start();
 header('Content-Type: application/json');
 
 
-if (!isset($_SESSION['carrinho'])) {
-    $_SESSION['carrinho'] = [];
-}
+require_once __DIR__ . '/../conexao.php'; 
+require_once __DIR__ . '/CarrinhoController.php'; 
+require_once __DIR__ . '/../models/CarrinhoModel.php'; 
 
 
 if (!isset($_SESSION['usuario_id'])) {
@@ -13,6 +13,8 @@ if (!isset($_SESSION['usuario_id'])) {
     exit;
 }
 
+$usuario_id = $_SESSION['usuario_id'];
+$controller = new CarrinhoController($pdo);
 
 $acao = $_POST['acao'] ?? '';
 $produto_id = isset($_POST['produto_id']) ? (int)$_POST['produto_id'] : 0;
@@ -22,28 +24,31 @@ if ($produto_id <= 0) {
     exit;
 }
 
+$success = false;
+$message = 'Ação inválida';
 
 switch ($acao) {
     case 'adicionar':
-        if (!in_array($produto_id, $_SESSION['carrinho'])) {
-            $_SESSION['carrinho'][] = $produto_id;
-        }
-        echo json_encode(['success' => true, 'message' => 'Produto adicionado ao carrinho']);
+        
+        $success = $controller->adicionarCarrinho($usuario_id, $produto_id);
+        $message = $success ? 'Produto adicionado ao carrinho.' : 'Erro ao adicionar o produto.';
         break;
 
     case 'remover':
-        if (($key = array_search($produto_id, $_SESSION['carrinho'])) !== false) {
-            unset($_SESSION['carrinho'][$key]);
-        }
-        echo json_encode(['success' => true, 'message' => 'Produto removido do carrinho']);
+      
+        $success = $controller->removerCarrinho($usuario_id, $produto_id);
+        $message = $success ? 'Produto removido do carrinho.' : 'Erro ao remover o produto.';
         break;
 
     case 'limpar':
-        $_SESSION['carrinho'] = [];
-        echo json_encode(['success' => true, 'message' => 'Carrinho limpo']);
+       
+        $success = $controller->limparCarrinho($usuario_id);
+        $message = $success ? 'Carrinho limpo.' : 'Erro ao limpar o carrinho.';
         break;
 
     default:
-        echo json_encode(['success' => false, 'message' => 'Ação inválida']);
+        $message = 'Ação inválida.';
         break;
 }
+
+echo json_encode(['success' => $success, 'message' => $message]);

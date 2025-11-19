@@ -13,12 +13,11 @@ class CarrinhoController {
         return $this->model->getCarrinhoByUsuario($usuario_id);
     }
 
-   
     public function removerCarrinho(int $usuario_id, int $produto_id): bool {
         return $this->model->removerCarrinho($usuario_id, $produto_id);
     }
 
-  
+    
     public function adicionarCarrinho(int $usuario_id, int $produto_id): bool {
         $carrinho = $this->model->getCarrinhoByUsuario($usuario_id);
 
@@ -28,5 +27,10 @@ class CarrinhoController {
         }
 
         return $this->model->adicionarCarrinho($usuario_id, $produto_id);
+    }
+    
+   
+    public function limparCarrinho(int $usuario_id): bool {
+        return $this->model->limparCarrinho($usuario_id);
     }
 }

@@ -7,9 +7,8 @@ require_once __DIR__ . '/../../conexao.php';
 
 $root = realpath(__DIR__ . '/../../..') . '/site-persona';
 
-
 if (!isset($_SESSION['usuario_id'])) {
-    header("Location: ../../index.php?page=login");
+    header("Location: /site-persona/index.php?page=login");
     exit;
 }
 
@@ -34,7 +33,7 @@ if (!empty($carrinhoIds)) {
 <title>Meu Carrinho - Lia: Bolos e Cia</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="/site-persona/style.css">
 </head>
 <body class="page-produtos">
 
@@ -60,8 +59,9 @@ if (!empty($carrinhoIds)) {
               </button>
 
               <div class="img-container">
-                <img src="../../<?= htmlspecialchars($produto['imagem_url']) ?>" 
-                     alt="<?= htmlspecialchars($produto['nome']) ?>" 
+                <img src="/site-persona/<?= htmlspecialchars($produto['imagem_url']) ?>" 
+     alt="<?= htmlspecialchars($produto['nome']) ?>" 
+     class="card-img-top">
                      class="card-img-top">
               </div>
 
@@ -82,7 +82,7 @@ if (!empty($carrinhoIds)) {
       <?php else: ?>
         <div class="col-12 text-center empty-state">
           <p class="empty-state-message">Seu carrinho está vazio.</p>
-          <a href="../../index.php#cardapio" class="btn-call-to-action">Ver Produtos</a>
+          <a href="/site-persona/index.php#cardapio" class="btn-call-to-action">Ver Produtos</a>
         </div>
       <?php endif; ?>
     </div>
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     button.addEventListener("click", function () {
       if (confirm("Tem certeza que deseja remover este produto do carrinho?")) {
-        fetch("../../controllers/carrinho_ajax.php", {
+      fetch("/site-persona/controllers/Carrinho_ajax.php", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: `acao=remover&produto_id=${produtoId}`

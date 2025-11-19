@@ -36,13 +36,21 @@ class CarrinhoModel {
     public function removerCarrinho(int $usuario_id, int $produto_id): bool {
         $sql = "DELETE FROM carrinho WHERE usuario_id = :usuario_id AND produto_id = :produto_id";
         $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute([
+       
+        if ($stmt->execute([
             'usuario_id' => $usuario_id,
             'produto_id' => $produto_id
-        ]);
+        ])) {
+            
+            return $stmt->rowCount() > 0;
+        }
+        
+       
+        return false;
     }
 
     
+   
     public function limparCarrinho(int $usuario_id): bool {
         $sql = "DELETE FROM carrinho WHERE usuario_id = :usuario_id";
         $stmt = $this->pdo->prepare($sql);
