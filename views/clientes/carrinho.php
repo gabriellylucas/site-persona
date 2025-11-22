@@ -48,7 +48,6 @@ if (!empty($carrinhoIds)) {
 
 <div class="row">
     
-   
     <div class="col-md-8">
         <h3>Itens do Pedido</h3>
 
@@ -138,6 +137,7 @@ if (!empty($carrinhoIds)) {
 
 <script>
 
+// atualizar total quando mudar entrega
 document.querySelectorAll("input[name='entrega']").forEach(radio => {
     radio.addEventListener("change", () => {
         const valorBase = <?= $total ?>;
@@ -147,7 +147,7 @@ document.querySelectorAll("input[name='entrega']").forEach(radio => {
     });
 });
 
-
+// remover item
 document.querySelectorAll(".remove-item").forEach(btn => {
     btn.addEventListener("click", () => {
         const id = btn.getAttribute("data-produto-id");
@@ -165,10 +165,38 @@ document.querySelectorAll(".remove-item").forEach(btn => {
     });
 });
 
-
+// finalizar pedido
 document.getElementById("btnFinalizar").addEventListener("click", () => {
-    alert("Pedido finalizado! (Simulação)");
+
+    const entrega = document.querySelector("input[name='entrega']:checked")?.value;
+    const pagamento = document.querySelector("input[name='pagamento']:checked")?.value;
+
+    if (!entrega || !pagamento) {
+        alert("Selecione a opção de entrega e pagamento.");
+        return;
+    }
+
+    const totalStr = document.getElementById("totalFinal").innerText.replace("R$ ", "").replace(",", ".");
+    const total = parseFloat(totalStr);
+
+    let dados = new FormData();
+    dados.append("entrega", entrega);
+    dados.append("pagamento", pagamento);
+    dados.append("total", total);
+
+    fetch("/site-persona/controllers/finalizar_pedido.php", {
+        method: "POST",
+        body: dados
+    })
+    .then(r => r.json())
+    .then(d => {
+        alert(d.message);
+        if (d.success) {
+         window.location.href = "/site-persona/index.php";
+        }
+    });
 });
+
 </script>
 
 </body>
