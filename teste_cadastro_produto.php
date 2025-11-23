@@ -8,12 +8,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $nome = $_POST['nome'] ?? '';
     $preco = (float)($_POST['preco'] ?? 0);
+    $estoque = (int)($_POST['estoque'] ?? 0); // <-- estoque adicionado
 
     if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+
         $arquivoTmp = $_FILES['imagem']['tmp_name'];
         $nomeArquivo = time() . '_' . basename($_FILES['imagem']['name']);
         $pastaDestino = __DIR__ . '/imagens/';
 
+        
         if (!is_dir($pastaDestino)) {
             mkdir($pastaDestino, 0777, true);
         }
@@ -21,10 +24,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $caminhoFinal = $pastaDestino . $nomeArquivo;
 
         if (move_uploaded_file($arquivoTmp, $caminhoFinal)) {
+
             $imagemUrl = 'imagens/' . $nomeArquivo;
 
-            $stmt = $pdo->prepare("INSERT INTO produtos (nome, preco, imagem_url, ativo) VALUES (?, ?, ?, 1)");
-            $stmt->execute([$nome, $preco, $imagemUrl]);
+            // SALVA NO BANCO COM ESTOQUE
+            $stmt = $pdo->prepare("
+                INSERT INTO produtos (nome, preco, estoque, imagem_url, ativo) 
+                VALUES (?, ?, ?, ?, 1)
+            ");
+            $stmt->execute([$nome, $preco, $estoque, $imagemUrl]);
 
             $mensagem = "Produto cadastrado com sucesso!";
         } else {
@@ -50,7 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php include __DIR__ . '/views/admin/navbar_admin.php'; ?>
 
-
 <div class="main-container container py-4">
     <h2 class="section-title mb-4 text-center">Cadastrar Novo Produto</h2>
 
@@ -62,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="col-md-6">
             <div class="card p-4">
                <form method="post" enctype="multipart/form-data">
+
                     <div class="mb-3">
                         <label class="form-label">Nome do Produto</label>
                         <input type="text" name="nome" class="form-control" required>
@@ -70,6 +78,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="mb-3">
                         <label class="form-label">Preço</label>
                         <input type="text" name="preco" class="form-control" placeholder="R$ 0,00" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Estoque Inicial</label>
+                        <input type="number" name="estoque" class="form-control" min="0" required>
                     </div>
 
                     <div class="mb-3">
@@ -82,12 +95,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <i class="fas fa-plus me-2"></i>Cadastrar Produto
                         </button>
                     </div>
+
                 </form>
             </div>
         </div>
     </div>
 </div>
-
 
 <?php include __DIR__ . '/views/admin/footer_admin.php'; ?>
 
