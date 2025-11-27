@@ -7,18 +7,16 @@ if(!isset($_SESSION['admin_id'])) {
     exit;
 }
 
+
 $stmt = $pdo->query("SELECT id, nome FROM categorias ORDER BY nome ASC");
 $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if(isset($_POST['salvar'])) {
-
     $nome = $_POST['nome'];
     $descricao = $_POST['descricao'];
     $preco = $_POST['preco'];
     $categoria_id = $_POST['categoria_id'];
-    $estoque = $_POST['estoque'];
 
-    // Upload da imagem
     if(isset($_FILES['imagem']) && $_FILES['imagem']['error'] == 0){
         $ext = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);
         $novo_nome = time().".".$ext;
@@ -27,18 +25,15 @@ if(isset($_POST['salvar'])) {
         $novo_nome = null;
     }
 
-    // Inserir no banco
-    $sql = "INSERT INTO produtos (nome, descricao, preco, imagem, categoria_id, estoque) 
-            VALUES (:nome, :descricao, :preco, :imagem, :categoria_id, :estoque)";
-
+    $sql = "INSERT INTO produtos (nome, descricao, preco, imagem, categoria_id) 
+            VALUES (:nome, :descricao, :preco, :imagem, :categoria_id)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
         ':nome' => $nome,
         ':descricao' => $descricao,
         ':preco' => $preco,
         ':imagem' => $novo_nome,
-        ':categoria_id' => $categoria_id,
-        ':estoque' => $estoque
+        ':categoria_id' => $categoria_id
     ]);
 
     header("Location: admin_produtos.php");
@@ -47,21 +42,10 @@ if(isset($_POST['salvar'])) {
 ?>
 
 <h1>Adicionar Produto</h1>
-
 <form method="post" enctype="multipart/form-data">
-
-    Nome: 
-    <input type="text" name="nome" required><br><br>
-
-    Descrição: 
-    <textarea name="descricao"></textarea><br><br>
-
-    Preço: 
-    <input type="text" name="preco" required><br><br>
-
-    Estoque:
-    <input type="number" name="estoque" min="0" required><br><br>
-
+    Nome: <input type="text" name="nome" required><br><br>
+    Descrição: <textarea name="descricao"></textarea><br><br>
+    Preço: <input type="text" name="preco" required><br><br>
     Categoria:
     <select name="categoria_id" required>
         <option value="">Selecione</option>
@@ -69,10 +53,6 @@ if(isset($_POST['salvar'])) {
             <option value="<?= $cat['id'] ?>"><?= $cat['nome'] ?></option>
         <?php endforeach; ?>
     </select><br><br>
-
-    Imagem: 
-    <input type="file" name="imagem"><br><br>
-
+    Imagem: <input type="file" name="imagem"><br><br>
     <button type="submit" name="salvar">Salvar</button>
-
 </form>
